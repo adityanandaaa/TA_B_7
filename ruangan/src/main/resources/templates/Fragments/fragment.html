@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head>
+    <head th:fragment="headerfragment">
+        <title th:text="${pageTitle}">Template Title</title>
+    </head>
+
+    <head th:fragment = "css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    </head>
+    <head th:fragment = "css">
+        <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+    </head>
+
+    <head th:fragment ="js">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt TE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s F86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+</head>
+<body>
+<nav th:fragment = "navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!--    <img th:src="@{/images.png}" th:href="@{/}" style="width:100px;height:48px;"/>-->
+    <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li>
+                <a class="nav-item nav-link active" th:href="@{/}"> Beranda <span class ="sr-only">(current)</span></a>
+            </li>
+            <li>
+                <a class="nav-item nav-link active" > Login <span class ="sr-only">(current)</span></a>
+            </li>
+<!--            th:href="@{/login}-->
+            <li>
+                <a class="nav-item nav-link active" > Logout <span class ="sr-only">(current)</span></a>
+            </li>
+<!--            th:href="@{/logout}-->
+<!--            <li>-->
+<!--                <a class="nav-item nav-link active" th:href="@{/bonus}"> Bonus <span class ="sr-only">(current)</span></a>-->
+<!--            </li>-->
+        </ul>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="page-footer font-small unique-color-dark pt-4">
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!-- Call to action -->
+            <ul class="list-unstyled list-inline text-center py-2">
+                <li class="list-inline-item">
+                    <h5 class="mb-1">Register for free</h5>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#!" class="btn btn-outline-white btn-rounded">Sign up!</a>
+                </li>
+            </ul>
+            <!-- Call to action -->
+
+        </div>
+        <!-- Footer Elements -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2018 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+</body>
+</html>
