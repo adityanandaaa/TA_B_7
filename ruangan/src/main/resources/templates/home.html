@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+
+
+<br>
+<br>
+<div class="container-fluid">
+    <h1> yaudah</h1>
+    <div class="card mb-3">
+        <img th:src="@{/fotolab.jpg}" class="card-img-top" alt="..." style="max-width: 50%;height: auto">
+        <div class="card-body">
+            <h5 class="card-title">Ruangan Lab</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+        <img src="..." class="card-img-top" alt="...">
+    </div>
+</div>
+</body>
+
+<footer th:replace="Fragments/fragment :: footer"></footer>
+</html>
