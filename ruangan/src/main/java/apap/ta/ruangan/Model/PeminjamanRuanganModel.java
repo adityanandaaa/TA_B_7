@@ -36,7 +36,8 @@ public class PeminjamanRuanganModel {
     @NotNull
     @Column(name = "tanggal_selesai", nullable = false)
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
-    private Date tanggalTerbit;
+    private Date tanggal_selesai;
+
 
     @NotNull
     @Size(max = 200)
@@ -103,12 +104,12 @@ public class PeminjamanRuanganModel {
         this.tanggal_mulai = tanggal_mulai;
     }
 
-    public Date getTanggalTerbit() {
-        return tanggalTerbit;
+    public Date getTanggal_selesai() {
+        return tanggal_selesai;
     }
 
-    public void setTanggalTerbit(Date tanggalTerbit) {
-        this.tanggalTerbit = tanggalTerbit;
+    public void setTanggal_selesai(Date tanggal_selesai) {
+        this.tanggal_selesai = tanggal_selesai;
     }
 
     public String getTujuan() {
