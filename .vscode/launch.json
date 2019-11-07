@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RuanganApplication<ruangan>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "apap.ta.ruangan.RuanganApplication",
+            "projectName": "ruangan",
+            "args": ""
+        }
+    ]
+}
