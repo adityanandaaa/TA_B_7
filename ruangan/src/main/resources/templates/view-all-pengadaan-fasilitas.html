@@ -37,11 +37,16 @@
                             <td th:if="${pengadaanfasilitas.status} == 1">Menunggu persetujuan</td>
                             <td th:if="${pengadaanfasilitas.status} == 2">Ditolak</td>
                             <td th:if="${pengadaanfasilitas.status} == 3">Disetujui</td>
-                            <td>
+                            <td th:if="${pengadaanfasilitas.status} == 1">
                                 <button class="btn tbn-sm btn-danger bg-red">
                                     <a th:href = "@{/pengadaan-fasilitas/delete/} + ${pengadaanfasilitas.id}" style ="color:white">delete</a>
                                 </button>
-                            </td>                    
+                            </td>
+                            <td th:if="${pengadaanfasilitas.status} == 0">
+                                <button class="btn tbn-sm btn-danger bg-red">
+                                    <a th:href = "@{/pengadaan-fasilitas/delete/} + ${pengadaanfasilitas.id}" style ="color:white">delete</a>
+                                </button>
+                            </td>                        
                         </tr>
                         </tbody>
                     </table>
