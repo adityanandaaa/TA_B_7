@@ -21,4 +21,17 @@ public class PengadaanFasilitasServiceImpl implements PengadaanFasilitasService 
         return pengadaanFasilitasDb.findAll();
     }
 
+    @Override
+    public PengadaanFasilitasModel getPengadaanFasilitasById(Long id) {
+        if(pengadaanFasilitasDb.findById(id).isPresent()){
+            return pengadaanFasilitasDb.findById(id).get();
+        }
+        return null;
+    }
+
+    @Override
+    public void deletePengadaanFasilitas(Long id) {
+        pengadaanFasilitasDb.deleteById(id);
+    }
+
 }
