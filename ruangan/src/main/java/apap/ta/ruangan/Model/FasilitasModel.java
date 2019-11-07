@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "fasilitas")
@@ -25,11 +26,9 @@ public class FasilitasModel {
     @Column(name = "jumlah",nullable = false)
     private Long jumlah;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_ruangan",referencedColumnName = "id",nullable = false)
+    @OneToMany(mappedBy = "fasilitasModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private RuanganModel ruangan;
+    private List<RuanganFasilitasModel> listRuangan;
 
     public Long getId() {
         return id;
@@ -55,11 +54,11 @@ public class FasilitasModel {
         this.jumlah = jumlah;
     }
 
-    public RuanganModel getRuangan() {
-        return ruangan;
+    public List<RuanganFasilitasModel> getListRuangan() {
+        return listRuangan;
     }
 
-    public void setRuangan(RuanganModel ruangan) {
-        this.ruangan = ruangan;
+    public void setListRuangan(List<RuanganFasilitasModel> listRuangan) {
+        this.listRuangan = listRuangan;
     }
 }

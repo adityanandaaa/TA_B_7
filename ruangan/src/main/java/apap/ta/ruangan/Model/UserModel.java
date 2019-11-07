@@ -50,4 +50,61 @@ public class UserModel {
     private List<PengadaanFasilitasModel> pengadaanFasilitasList;
 
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public RoleModel getRole() {
+        return role;
+    }
+
+    public void setRole(RoleModel role) {
+        this.role = role;
+    }
+
+    public List<PeminjamanRuanganModel> getPeminjamanRuanganPeminjamList() {
+        return peminjamanRuanganPeminjamList;
+    }
+
+    public void setPeminjamanRuanganPeminjamList(List<PeminjamanRuanganModel> peminjamanRuanganPeminjamList) {
+        this.peminjamanRuanganPeminjamList = peminjamanRuanganPeminjamList;
+    }
+
+    public List<PeminjamanRuanganModel> getPeminjamanRuanganPenyetujuList() {
+        return peminjamanRuanganPenyetujuList;
+    }
+
+    public void setPeminjamanRuanganPenyetujuList(List<PeminjamanRuanganModel> peminjamanRuanganPenyetujuList) {
+        this.peminjamanRuanganPenyetujuList = peminjamanRuanganPenyetujuList;
+    }
+
+    public List<PengadaanFasilitasModel> getPengadaanFasilitasList() {
+        return pengadaanFasilitasList;
+    }
+
+    public void setPengadaanFasilitasList(List<PengadaanFasilitasModel> pengadaanFasilitasList) {
+        this.pengadaanFasilitasList = pengadaanFasilitasList;
+    }
+
+
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Daftar Pengadaan Fasilitas</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama </th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
+                            <th>Status </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pengadaanfasilitas,iterationStatus : ${listPengadaanFasilitas}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${pengadaanfasilitas.nama}"></td>
+                            <td th:text="${pengadaanfasilitas.jumlah}"></td>
+                            <td th:text="${pengadaanfasilitas.harga}"></td>
+                            <td th:if="${pengadaanfasilitas.status} == 0">Usulan pengguna</td>
+                            <td th:if="${pengadaanfasilitas.status} == 1">Menunggu persetujuan</td>
+                            <td th:if="${pengadaanfasilitas.status} == 2">Ditolak</td>
+                            <td th:if="${pengadaanfasilitas.status} == 3">Disetujui</td>
+                            <td th:if="${pengadaanfasilitas.status} == 1">
+                                <button class="btn tbn-sm btn-danger bg-red">
+                                    <a th:href = "@{/pengadaan-fasilitas/delete/} + ${pengadaanfasilitas.id}" style ="color:white">delete</a>
+                                </button>
+                            </td>
+                            <td th:if="${pengadaanfasilitas.status} == 0">
+                                <button class="btn tbn-sm btn-danger bg-red">
+                                    <a th:href = "@{/pengadaan-fasilitas/delete/} + ${pengadaanfasilitas.id}" style ="color:white">delete</a>
+                                </button>
+                            </td>                        
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

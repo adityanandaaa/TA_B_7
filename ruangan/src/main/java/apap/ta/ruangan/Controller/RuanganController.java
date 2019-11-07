@@ -24,7 +24,6 @@ public class RuanganController {
 
         RuanganModel ruangan = ruanganService.getRuanganById(idRuangan);
 
-        System.out.println("la"+ ruangan.getNama());
 
         model.addAttribute("ruangan", ruangan);
         model.addAttribute("pageTitle", "View Ruangan");

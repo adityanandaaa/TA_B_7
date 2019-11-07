@@ -27,10 +27,9 @@ public class RuanganModel {
     @Column(name = "kapasitas",nullable = false)
     private Long kapasitas;
 
-    @OneToMany(mappedBy = "ruangan",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ruanganModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private List<FasilitasModel> listFasilitas;
+    private List<RuanganFasilitasModel> listFasilitas;
 
     @OneToMany(mappedBy = "ruanganModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -60,11 +59,11 @@ public class RuanganModel {
         this.kapasitas = kapasitas;
     }
 
-    public List<FasilitasModel> getListFasilitas() {
+    public List<RuanganFasilitasModel> getListFasilitas() {
         return listFasilitas;
     }
 
-    public void setListFasilitas(List<FasilitasModel> listFasilitas) {
+    public void setListFasilitas(List<RuanganFasilitasModel> listFasilitas) {
         this.listFasilitas = listFasilitas;
     }
 
