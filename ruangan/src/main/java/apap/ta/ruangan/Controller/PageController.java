@@ -12,4 +12,9 @@ public class PageController {
         model.addAttribute("pageTitle","Home");
         return "home";
     }
+    @RequestMapping("/login")
+    public String login(Model model){
+        model.addAttribute("pageTitle","Log in");
+        return "login";
+    }
 }
