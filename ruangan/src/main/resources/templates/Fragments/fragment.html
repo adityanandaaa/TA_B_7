@@ -16,22 +16,33 @@
     </head>
 </head>
 <body>
-<nav th:fragment = "navbar" class="navbar navbar-expand-lg navbar-dark unique-color-dark pt-4">
-<!--    <img th:src="@{/images.png}" th:href="@{/}" style="width:100px;height:48px;"/>-->
-    <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{img/siruang2.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+            SIruang
+        </a>
+    </nav>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li>
-                <a class="nav-item nav-link active" th:href="@{/}"> Beranda <span class ="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/}">Beranda</a>
             </li>
 <!--            <li>-->
 <!--                <a class="nav-item nav-link active" > Login <span class ="sr-only">(current)</span></a>-->
 <!--            </li>-->
 <!--            th:href="@{/login}-->
-            <li>
-                <a class="nav-item nav-link active" th:href="@{/logout}">Logout</a>
+        </ul>
+        <ul class="navbar-nav my-2 ml-auto">
+            <li th:if="${#httpServletRequest.userPrincipal} != null">
+                <a class="navbar-brand" th:text="${#httpServletRequest.remoteUser}" style="color: white">Login as</a>
+                <a class="btn btn-light" th:href="@{/logout}">Logout</a>
+            </li>
+            <li th:unless="${#httpServletRequest.userPrincipal} != null">
+                <a class="btn btn-light" th:href="@{/login}">Login</a>
             </li>
 <!--            th:href="@{/logout}-->
 <!--            <li>-->
@@ -40,33 +51,35 @@
         </ul>
     </div>
 </nav>
+<br>
+<!-- Footer -->
+<!-- Footer -->
+<!-- Footer -->
+<footer class="page-footer font-small unique-color-dark pt-4 bg-dark" style="align-items: center">
 
-<footer th:fragment="footer" class="page-footer font-small unique-color-dark pt-4">
-        <!-- Footer Elements -->
-        <div class="container">
+    <!-- Footer Elements -->
+    <div class="container">
 
-            <!-- Call to action -->
-            <ul class="list-unstyled list-inline text-center py-2">
-                <li class="list-inline-item">
-                    <h5 class="mb-1">Register for free</h5>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#!" class="btn btn-outline-white btn-rounded">Sign up!</a>
-                </li>
-            </ul>
-            <!-- Call to action -->
+        <!-- Call to action -->
+        <ul class="list-unstyled list-inline text-center py-2" style="align-items: center">
+            <li class="list-inline-item">
+                <h5 class="mb-1" style="color: white">SIRuang</h5>
+            </li>
+        </ul>
+        <!-- Call to action -->
 
-        </div>
-        <!-- Footer Elements -->
+    </div>
+    <!-- Footer Elements -->
 
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-            <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
-        </div>
-        <!-- Copyright -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3 bg-dark white-text" style="color: white">© 2019 Copyright
+        <h6 style="color: white" class="white-text"> Kelompok Serah </h6>
+    </div>
+    <!-- Copyright -->
 
-    </footer>
-    <!-- Footer -->
+</footer>
+<!-- Footer -->
+
 
 </body>
 </html>
