@@ -63,12 +63,4 @@ public class FasilitasModel {
     }
 }
 
-//    INSERT INTO `fasilitas`(`id`, `jumlah`, `nama`) VALUES
-//        (NULL,20, 'Ac'),
-//        (NULL,10, 'Proyektor'),
-//        (NULL,5, 'TV'),
-//        (NULL,40, 'Kursi'),
-//        (NULL,10, 'Meja'),
-//        (NULL,10, 'Komputer'),
-//        (NULL,10, 'Speaker');
 
