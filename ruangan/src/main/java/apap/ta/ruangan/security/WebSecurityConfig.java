@@ -21,13 +21,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
-<<<<<<< HEAD
 //                .anyRequest().authenticated()
 
-=======
-                .antMatchers("/img/**").permitAll()
-                .anyRequest().authenticated()
->>>>>>> d4e36f8d77b79df081a1c6dd5eca62ea92ee8f16
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
@@ -41,12 +36,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
-    @Qualifier("userDetailsServiceImpl")
+//    @Qualifier("userDetailsServiceImpl")
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+//
+//    @Autowired
+//    public void configAuthertication(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+//    }
+//
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    public void configAuthertication(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(encoder())
+                .withUser("nadiem").password(encoder().encode("makarim"))
+                .roles("USER");
     }
 }
