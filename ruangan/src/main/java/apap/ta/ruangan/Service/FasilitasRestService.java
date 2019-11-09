@@ -7,4 +7,6 @@ import java.util.List;
 public interface FasilitasRestService {
 
     List<FasilitasModel> retrieveListFasilitasModel();
+
+    FasilitasModel getFasilitasById(Long id);
 }

@@ -10,19 +10,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class FasilitasRestServiceImpl implements FasilitasRestService {
+public class FasilitasServiceImpl implements FasilitasService {
 
     @Autowired
     private FasilitasDb fasilitasDb;
 
     @Override
-    public List<FasilitasModel> retrieveListFasilitasModel(){
+    public List<FasilitasModel> getFasilitasList(){
         return fasilitasDb.findAll();
     }
-
-    @Override
-    public FasilitasModel getFasilitasById(Long id){
-        return fasilitasDb.findById(id).get();
-    }
 }
-

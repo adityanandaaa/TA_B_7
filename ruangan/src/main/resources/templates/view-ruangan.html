@@ -31,6 +31,27 @@
                             <p th:text="${ruangan.kapasitas}"></p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Fasilitas</p>
+                        </div>
+                        <div class="col-md-8">
+<!--                            <div th:if = "${counter == 1}">-->
+<!--                                <div th:each="fasilitas, iterationStatus:${ruanganFasilitas}">-->
+<!--                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah * fasilitas.jumlah_fasilitas }"></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div th:if = "${counter >= 2}">-->
+<!--                                <div th:each="fasilitas, iterationStatus:${ruanganFasilitas}">-->
+<!--                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah * fasilitas.jumlah_fasilitas * counter}"></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                                <div th:each="fasilitas, iterationStatus:${ruanganFasilitas}">
+                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah * fasilitas.jumlah_fasilitas }"></p>
+                                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
