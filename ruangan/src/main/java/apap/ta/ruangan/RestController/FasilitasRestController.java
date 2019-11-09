@@ -37,15 +37,37 @@ public class FasilitasRestController {
             List<FasilitasModel> listFasilitas = new ArrayList<>();
             List<RuanganFasilitasModel> ruanganFasilitas = ruanganFasilitasRestService.getRuanganFasilitasByRuangan(ruangan);
             for(RuanganFasilitasModel ruanganFasilitasModel : ruanganFasilitas){
-                FasilitasModel fasilitasModel = ruanganFasilitasModel.getFasilitasModel();
-                listFasilitas.add(fasilitasModel);
+                listFasilitas.add(ruanganFasilitasModel.getFasilitasModel());
             }
+            System.out.println(listFasilitas);
             return listFasilitas;
         }catch (NoSuchElementException e){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,"ID Store " + namaRuangan + "Not Found");
         }
     }
+
+//    @GetMapping(value = "/fasilitas")
+//    private List<FasilitasModel> retrieveStore(@RequestParam("namaRuangan")String namaRuangan){
+//        try {
+//            RuanganModel ruangan = ruanganRestService.getRuanganByNama(namaRuangan);
+//            List<FasilitasModel> listFasilitas = new ArrayList<>();
+//            List<RuanganFasilitasModel> ruanganFasilitas = ruanganFasilitasRestService.getRuanganFasilitasByRuangan(ruangan);
+//            for(RuanganFasilitasModel ruanganFasilitasModel : ruanganFasilitas){
+//                FasilitasModel fasilitasModel = ruanganFasilitasModel.getFasilitasModel();
+//                listFasilitas.add(fasilitasModel);
+//            }
+//
+//            for(FasilitasModel fasilitasModel : listFasilitas){
+//                fasilitasRestService.retrieveBranch(fasilitasModel);
+//            }
+//            System.out.println(listFasilitas);
+//            return listFasilitas;
+//        }catch (NoSuchElementException e){
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND,"ID Store " + namaRuangan + "Not Found");
+//        }
+//    }
 //    /api/v1/fasilitas?namaRuangan=Koperasi
 
     @GetMapping(value = "/allfasilitas")
