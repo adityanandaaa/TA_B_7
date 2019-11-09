@@ -45,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
-
     @Autowired
     public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
