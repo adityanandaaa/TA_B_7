@@ -36,6 +36,8 @@ public class RuanganController {
         List<RuanganFasilitasModel> listRuanganbeneran = new ArrayList<>();
         List<RuanganFasilitasModel> ruanganFasilitas = ruanganFasilitasService.getRuanganFasilitasByRuangan(ruangan);
 
+//        ini harusnya bisa ngecek duplicate kalo ada yang dimasukin dua kali fasilitasnya
+
 //        int counter = 1;
 //        for(int i = 0; i <= ruanganFasilitas.size()-1; i++){
 //            listRuanganbeneran.add(ruanganFasilitas.get(i));
