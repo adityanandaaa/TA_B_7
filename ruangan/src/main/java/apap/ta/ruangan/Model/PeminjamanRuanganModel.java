@@ -39,7 +39,6 @@ public class PeminjamanRuanganModel implements Serializable {
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date tanggal_selesai;
 
-
     @NotNull
     @Size(max = 200)
     @Column(name = "tujuan",nullable = false)
@@ -54,7 +53,7 @@ public class PeminjamanRuanganModel implements Serializable {
     @Column(name = "jumlah_peserta",nullable = false)
     private Long jumlah_peserta;
 
-    @NotNull
+
     @Column(name = "is_disetujui",nullable = false)
     private Boolean is_disetujui;
 
