@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -38,14 +44,39 @@ public class PeminjamanRuanganController {
     }
 
     @RequestMapping(value = "/tambah", method = RequestMethod.POST)
-    public String addPasien(@ModelAttribute PeminjamanRuanganModel peminjamanruangan, Model model) {
+    public String addPeminjamanRuanganPage(@ModelAttribute PeminjamanRuanganModel peminjamanruangan, Model model) throws ParseException {
+        String messages ;
+        DateFormat sdf = new SimpleDateFormat("hh:mm");
+        Date mulai = sdf.parse(peminjamanruangan.getWaktu_mulai());
+        Date akhir = sdf.parse(peminjamanruangan.getWaktu_selesai());
 
-        peminjamanruangan.setIs_disetujui(false);
-        peminjamanruangan.setUserModelPenyetuju(null);
+        if(peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai()) ) {
+            if(mulai.compareTo(akhir) < 0){
+                if(peminjamanruangan.getJumlah_peserta()<peminjamanruangan.getRuanganModel().getKapasitas()){
+                    peminjamanruangan.setIs_disetujui(false);
+                    peminjamanruangan.setUserModelPenyetuju(null);
 
-        peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
-        model.addAttribute("peminjamanruangan", peminjamanruangan);
-        return "add-peminjaman-ruangan";
+                    peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
+                    model.addAttribute("peminjamanruangan", peminjamanruangan);
+                    return "add-peminjaman-ruangan";
+                }
+                else {
+
+                    messages = "Kapasitas tidak sesuai";
+                    model.addAttribute("messages",messages);
+                    return "gabisa-add-peminjaman-ruangan";
+                }
+            }
+            else {
+                messages = "Waktu tidak sesuai";
+                model.addAttribute("messages",messages);
+                return "gabisa-add-peminjaman-ruangan";
+            }
+        }else {
+            messages = "Tanggal tidak sesuai";
+            model.addAttribute("messages",messages);
+            return "gabisa-add-peminjaman-ruangan";
+        }
     }
 
 
