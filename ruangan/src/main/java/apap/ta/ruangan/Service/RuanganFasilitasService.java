@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RuanganFasilitasService {
     List<RuanganFasilitasModel> getRuanganFasilitasByRuangan(RuanganModel ruanganModel);
+
 }

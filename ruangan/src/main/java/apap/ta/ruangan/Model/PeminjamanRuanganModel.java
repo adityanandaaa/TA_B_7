@@ -1,6 +1,8 @@
 package apap.ta.ruangan.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,11 +34,13 @@ public class PeminjamanRuanganModel implements Serializable {
     @NotNull
     @Column(name = "tanggal_mulai", nullable = false)
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-dd-MM")
     private Date tanggal_mulai;
 
     @NotNull
     @Column(name = "tanggal_selesai", nullable = false)
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-dd-MM")
     private Date tanggal_selesai;
 
     @NotNull
@@ -53,20 +57,19 @@ public class PeminjamanRuanganModel implements Serializable {
     @Column(name = "jumlah_peserta",nullable = false)
     private Long jumlah_peserta;
 
-
     @Column(name = "is_disetujui",nullable = false)
     private Boolean is_disetujui;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "uuid_user_peminjam")
     @OnDelete(action = OnDeleteAction.CASCADE)
     UserModel userModelPeminjam;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "uuid_user_penyetuju")
     @OnDelete(action = OnDeleteAction.CASCADE)
     UserModel userModelPenyetuju;
-
+//,cascade=CascadeType.ALL
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_ruang")
     @OnDelete(action = OnDeleteAction.CASCADE)

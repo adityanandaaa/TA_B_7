@@ -2,6 +2,7 @@ package apap.ta.ruangan.Controller;
 
 
 import apap.ta.ruangan.Model.PeminjamanRuanganModel;
+import apap.ta.ruangan.Model.RuanganModel;
 import apap.ta.ruangan.Service.PeminjamanRuanganService;
 import apap.ta.ruangan.Service.RuanganService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,6 @@ public class PeminjamanRuanganController {
     public String addPeminjamanRuanganFormPage(Model model) {
         PeminjamanRuanganModel peminjamanRuanganModel = new PeminjamanRuanganModel();
 
-
-
         model.addAttribute("peminjamanruangan", peminjamanRuanganModel);
         model.addAttribute("listOfRuangan",ruanganService.getRuanganList());
         model.addAttribute("pageTitle", "Add Peminjaman Ruangan");
@@ -49,6 +48,7 @@ public class PeminjamanRuanganController {
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         Date mulai = sdf.parse(peminjamanruangan.getWaktu_mulai());
         Date akhir = sdf.parse(peminjamanruangan.getWaktu_selesai());
+
 
         if(peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai()) ) {
             if(mulai.compareTo(akhir) < 0){
@@ -85,6 +85,8 @@ public class PeminjamanRuanganController {
 
         PeminjamanRuanganModel peminjamanruangan = peminjamanRuanganService.getPeminjamanRuanganById(idPeminjamanRuangan);
 
+
+
         model.addAttribute("peminjamanruangan", peminjamanruangan);
         model.addAttribute("pageTitle", "View Peminjaman Ruangan");
         model.addAttribute("pageFooter", "View Store");
@@ -97,9 +99,12 @@ public class PeminjamanRuanganController {
     @RequestMapping(value = "/peminjaman-ruangan-all", method = RequestMethod.GET)
     public String viewAllruangan(Model model) {
 
+
         List<PeminjamanRuanganModel> peminjamanRuanganList = peminjamanRuanganService.getPeminjamanRuanganList();
+        List<RuanganModel> ruanganModelList = ruanganService.getRuanganList();
 
         model.addAttribute("peminjamanRuanganList", peminjamanRuanganList);
+        model.addAttribute("ruanganModelList",ruanganModelList);
         model.addAttribute("pageTitle", "All Peminjaman Ruangan");
         model.addAttribute("pageFooter", "View Store");
 
