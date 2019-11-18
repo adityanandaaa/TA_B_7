@@ -11,13 +11,21 @@ import java.util.List;
 @Service
 @Transactional
 public class PeminjamanRuanganServiceImpl implements PeminjamanRuanganService{
+
     @Autowired
     private PeminjamanRuanganDb peminjamanRuanganDb;
 
+    @Override
     public PeminjamanRuanganModel getPeminjamanRuanganById(Long idPeminjamanRuangan){
         return peminjamanRuanganDb.findById(idPeminjamanRuangan).get();
     }
 
+    @Override
+    public void addPeminjamRuangan(PeminjamanRuanganModel peminjamanRuanganModel){
+        peminjamanRuanganDb.save(peminjamanRuanganModel);
+    }
+
+    @Override
     public List<PeminjamanRuanganModel> getPeminjamanRuanganList(){
         return peminjamanRuanganDb.findAll();
     }

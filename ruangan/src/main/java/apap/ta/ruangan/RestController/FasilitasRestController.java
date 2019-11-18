@@ -39,13 +39,14 @@ public class FasilitasRestController {
             for(RuanganFasilitasModel ruanganFasilitasModel : ruanganFasilitas){
                 listFasilitas.add(ruanganFasilitasModel.getFasilitasModel());
             }
-            System.out.println(listFasilitas);
             return listFasilitas;
         }catch (NoSuchElementException e){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,"ID Store " + namaRuangan + "Not Found");
         }
     }
+
+
 
 //    @GetMapping(value = "/fasilitas")
 //    private List<FasilitasModel> retrieveStore(@RequestParam("namaRuangan")String namaRuangan){
