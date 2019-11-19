@@ -1,17 +1,20 @@
 package apap.ta.ruangan.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "fasilitas")
-public class FasilitasModel {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class FasilitasModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,7 @@ public class FasilitasModel {
 
     @OneToMany(mappedBy = "fasilitasModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<RuanganFasilitasModel> listRuangan;
 
     public Long getId() {
@@ -62,3 +66,5 @@ public class FasilitasModel {
         this.listRuangan = listRuangan;
     }
 }
+
+
