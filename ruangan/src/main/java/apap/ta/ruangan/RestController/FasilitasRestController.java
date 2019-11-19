@@ -31,7 +31,7 @@ public class FasilitasRestController {
     private RuanganFasilitasRestService ruanganFasilitasRestService;
 
     @GetMapping(value = "/fasilitas")
-    private List<FasilitasModel> retrieveStore(@RequestParam("namaRuangan")String namaRuangan){
+    private List<FasilitasModel> retrieveFasilitas(@RequestParam("namaRuangan")String namaRuangan){
         try {
             RuanganModel ruangan = ruanganRestService.getRuanganByNama(namaRuangan);
             List<FasilitasModel> listFasilitas = new ArrayList<>();

@@ -30,10 +30,12 @@ public class RuanganModel  implements Serializable {
 
     @OneToMany(mappedBy = "ruanganModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<RuanganFasilitasModel> listFasilitas;
 
     @OneToMany(mappedBy = "ruanganModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<PeminjamanRuanganModel> peminjamanRuanganList;
 
     public Long getId() {

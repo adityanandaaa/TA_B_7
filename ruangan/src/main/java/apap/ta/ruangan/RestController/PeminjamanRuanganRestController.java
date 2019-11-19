@@ -1,7 +1,9 @@
 package apap.ta.ruangan.RestController;
 
 
+import apap.ta.ruangan.Model.FasilitasModel;
 import apap.ta.ruangan.Model.PeminjamanRuanganModel;
+import apap.ta.ruangan.Model.RuanganFasilitasModel;
 import apap.ta.ruangan.Model.RuanganModel;
 import apap.ta.ruangan.Rest.BaseResponse;
 import apap.ta.ruangan.Service.FasilitasRestService;
@@ -11,18 +13,17 @@ import apap.ta.ruangan.Service.RuanganRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("api/v1")
@@ -73,6 +74,10 @@ public class PeminjamanRuanganRestController {
             }
         }
         return response;
+    }
+    @GetMapping(value = "/listruangan")
+    private List<RuanganModel> retrieveRuangan(){
+            return ruanganRestService.getRuanganList();
     }
 
 //    @PostMapping(value = "/pinjem")
