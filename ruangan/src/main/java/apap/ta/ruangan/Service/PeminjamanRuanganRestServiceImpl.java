@@ -9,19 +9,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
 public class PeminjamanRuanganRestServiceImpl implements PeminjamanRuanganRestService {
 
-    private final WebClient webClient;
 
     @Autowired
     PeminjamanRuanganDb peminjamanRuanganDb;
 
-    public PeminjamanRuanganRestServiceImpl (WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl("https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/3").build();
-    }
 
     @Override
     public PeminjamanRuanganModel createPeminjamanRuangan(PeminjamanRuanganModel peminjamanRuanganModel){
@@ -30,9 +27,8 @@ public class PeminjamanRuanganRestServiceImpl implements PeminjamanRuanganRestSe
     }
 
     @Override
-    public Mono<PengajuanSurat> retrieveListSurat(){
-        return this.webClient.get().retrieve().bodyToMono(PengajuanSurat.class);
-
+    public List<PeminjamanRuanganModel> getPeminjamanRuanganList(){
+        return peminjamanRuanganDb.findAll();
     }
 
 }

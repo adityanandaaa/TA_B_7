@@ -22,6 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
+                .antMatchers("/img/**").permitAll()
+                .antMatchers("/ruangan/ubah-jumlah-fasilitas**").hasAnyAuthority("Admin TU")
                 .antMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
 
@@ -46,6 +48,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configAuthertication(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
-
-
 }
