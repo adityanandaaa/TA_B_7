@@ -1,6 +1,7 @@
 package apap.ta.ruangan.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "fasilitas")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FasilitasModel implements Serializable {
 
     @Id
@@ -29,6 +31,7 @@ public class FasilitasModel implements Serializable {
 
     @OneToMany(mappedBy = "fasilitasModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<RuanganFasilitasModel> listRuangan;
 
     public Long getId() {
