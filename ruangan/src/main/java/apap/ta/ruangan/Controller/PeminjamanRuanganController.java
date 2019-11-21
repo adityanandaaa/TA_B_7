@@ -3,21 +3,32 @@ package apap.ta.ruangan.Controller;
 
 import apap.ta.ruangan.Model.PeminjamanRuanganModel;
 import apap.ta.ruangan.Model.RuanganModel;
+import apap.ta.ruangan.Model.UserModel;
+import apap.ta.ruangan.Repository.UserDb;
+import apap.ta.ruangan.Rest.PengajuanSurat;
+import apap.ta.ruangan.Rest.PengajuanSuratResponse;
 import apap.ta.ruangan.Service.PeminjamanRuanganService;
 import apap.ta.ruangan.Service.RuanganService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
+import java.security.Principal;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,39 +37,102 @@ import java.util.List;
 public class PeminjamanRuanganController {
 
     @Autowired
+    RestTemplate restTemplate;
+
+    @Bean
+    public RestTemplate rest() {
+        return new RestTemplate();
+    }
+
+    @Autowired
     private PeminjamanRuanganService peminjamanRuanganService;
 
     @Autowired
     private RuanganService ruanganService;
+
+    @Autowired
+    private UserDb userDb;
 
 
     @RequestMapping(value = "/tambah", method = RequestMethod.GET)
     public String addPeminjamanRuanganFormPage(Model model) {
         PeminjamanRuanganModel peminjamanRuanganModel = new PeminjamanRuanganModel();
 
+        List<PengajuanSurat> pengajuanSuratList = new ArrayList<>();
+
+        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/ruangan" ;
+
+
+        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
+        pengajuanSuratList = response.getResult();
+        
+        PengajuanSurat pengajuanSurat = new PengajuanSurat();
+        model.addAttribute("pengajuanSurat",pengajuanSurat);
         model.addAttribute("peminjamanruangan", peminjamanRuanganModel);
         model.addAttribute("listOfRuangan",ruanganService.getRuanganList());
         model.addAttribute("pageTitle", "Add Peminjaman Ruangan");
+        model.addAttribute("listPengajuanSurat",pengajuanSuratList);
+
         return "form-add-peminjaman-ruangan";
     }
 
     @RequestMapping(value = "/tambah", method = RequestMethod.POST)
-    public String addPeminjamanRuanganPage(@ModelAttribute PeminjamanRuanganModel peminjamanruangan, Model model) throws ParseException {
+    public String addPeminjamanRuanganPage(@ModelAttribute PeminjamanRuanganModel peminjamanruangan,PengajuanSurat pengajuanSurat, Model model, Principal principal,final BindingResult bindingResult) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<UserModel> listuser = userDb.findAll();
+        UserModel login = null;
+        String currentPrincipalName = authentication.getName();
+        for(UserModel userModel : listuser){
+            if(currentPrincipalName.equals(userModel.getUsername())){
+                login = userModel;
+
+            }
+        }
+
+        List<PengajuanSurat> pengajuanSuratList = new ArrayList<>();
+
+        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/ruangan" ;
+        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
+        pengajuanSuratList = response.getResult();
+        for(PengajuanSurat pengajuanSurat1 : pengajuanSuratList){
+            if(pengajuanSurat1.getStatus() == pengajuanSurat.getStatus()){
+                pengajuanSurat = pengajuanSurat1;
+            }
+        }
+
         String messages ;
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         Date mulai = sdf.parse(peminjamanruangan.getWaktu_mulai());
         Date akhir = sdf.parse(peminjamanruangan.getWaktu_selesai());
 
-
         if(peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai()) ) {
             if(mulai.compareTo(akhir) < 0){
                 if(peminjamanruangan.getJumlah_peserta()<peminjamanruangan.getRuanganModel().getKapasitas()){
-                    peminjamanruangan.setIs_disetujui(false);
-                    peminjamanruangan.setUserModelPenyetuju(null);
+                    System.out.println(pengajuanSurat);
+                    System.out.println(pengajuanSurat.getJenisSurat());
+                    System.out.println(pengajuanSurat.getKeterangan());
+                    System.out.println(pengajuanSurat.getStatus());
+                    System.out.println(pengajuanSurat.getIdUser());
 
-                    peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
-                    model.addAttribute("peminjamanruangan", peminjamanruangan);
-                    return "add-peminjaman-ruangan";
+                    if(pengajuanSurat.getStatus() >= 2){
+                        peminjamanruangan.setIs_disetujui(true);
+                        peminjamanruangan.setUserModelPenyetuju(null);
+                        peminjamanruangan.setUserModelPeminjam(login);
+
+
+                        peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
+                        model.addAttribute("peminjamanruangan", peminjamanruangan);
+                        return "add-peminjaman-ruangan";
+
+                    }else {
+                        peminjamanruangan.setIs_disetujui(false);
+                        peminjamanruangan.setUserModelPenyetuju(null);
+                        peminjamanruangan.setUserModelPeminjam(login);
+
+                        peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
+                        model.addAttribute("peminjamanruangan", peminjamanruangan);
+                        return "add-peminjaman-ruangan";
+                    }
                 }
                 else {
 

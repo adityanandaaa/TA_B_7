@@ -48,7 +48,7 @@
 <!--                            </div>-->
 
                                 <div th:each="fasilitas, iterationStatus:${ruanganFasilitas}">
-                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah * fasilitas.jumlah_fasilitas }"></p>
+                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah}"></p>
                                 </div>
                         </div>
                     </div>

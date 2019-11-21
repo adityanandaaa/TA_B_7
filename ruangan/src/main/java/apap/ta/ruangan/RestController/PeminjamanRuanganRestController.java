@@ -6,15 +6,21 @@ import apap.ta.ruangan.Model.PeminjamanRuanganModel;
 import apap.ta.ruangan.Model.RuanganFasilitasModel;
 import apap.ta.ruangan.Model.RuanganModel;
 import apap.ta.ruangan.Rest.BaseResponse;
+import apap.ta.ruangan.Rest.PengajuanSurat;
+import apap.ta.ruangan.Rest.PengajuanSuratResponse;
+import apap.ta.ruangan.Rest.Setting;
 import apap.ta.ruangan.Service.FasilitasRestService;
 import apap.ta.ruangan.Service.PeminjamanRuanganRestService;
 import apap.ta.ruangan.Service.RuanganFasilitasRestService;
 import apap.ta.ruangan.Service.RuanganRestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.text.DateFormat;
@@ -40,7 +46,32 @@ public class PeminjamanRuanganRestController {
 
     @Autowired
     private PeminjamanRuanganRestService peminjamanRuanganRestService;
-    
+
+//    @Autowired
+//    RestTemplate restTemplate;
+//
+//    @Bean
+//    public RestTemplate rest() {
+//        return new RestTemplate();
+//    }
+
+//    @GetMapping(value= "/listsurat")
+//    public String getStatus() {
+////        String path = Setting.pilotUrl+"/pilot?licenseNumber="+ licenseNumber;
+//        List<PengajuanSurat> pengajuanSuratList = new ArrayList<>();
+//        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/3" ;
+//        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
+//        pengajuanSuratList = response.getResult();
+//        System.out.println(pengajuanSuratList);
+//        return pengajuanSuratList.toString();
+////        return restTemplate.getForEntity(path, PengajuanSuratResponse.class).getBody().getResult().toString();
+//    }
+
+//    @GetMapping(value = "/listsurat")
+//    private Mono<PengajuanSurat> getStatus(){
+//        return peminjamanRuanganRestService.retrieveListSurat();
+//    }
+
 
     @PostMapping(value = "/pinjem")
     private BaseResponse<PeminjamanRuanganModel> createPeminjamanRuangan(@Valid @RequestBody PeminjamanRuanganModel peminjamanruangan, BindingResult bindingResult) throws ParseException {
@@ -76,8 +107,12 @@ public class PeminjamanRuanganRestController {
         return response;
     }
     @GetMapping(value = "/listruangan")
-    private List<RuanganModel> retrieveRuangan(){
-            return ruanganRestService.getRuanganList();
+    private BaseResponse<List<RuanganModel>> retrieveRuangan(){
+        BaseResponse<List<RuanganModel>> response = new BaseResponse<>();
+        response.setMessage("success");
+        response.setStatus(200);
+        response.setResult(ruanganRestService.getRuanganList());
+            return response;
     }
 
 //    @PostMapping(value = "/pinjem")
