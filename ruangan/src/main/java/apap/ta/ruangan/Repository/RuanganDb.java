@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface RuanganDb extends JpaRepository<RuanganModel,Long> {
     RuanganModel findByNama(String nama);
     Optional<RuanganModel> findById(Long id);
+
 }

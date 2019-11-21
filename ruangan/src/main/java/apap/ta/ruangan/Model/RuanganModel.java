@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ruangan")
-public class RuanganModel  implements Serializable {
+public class RuanganModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,12 @@ public class RuanganModel  implements Serializable {
 
     @OneToMany(mappedBy = "ruanganModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<RuanganFasilitasModel> listFasilitas;
 
     @OneToMany(mappedBy = "ruanganModel",cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<PeminjamanRuanganModel> peminjamanRuanganList;
 
     public Long getId() {

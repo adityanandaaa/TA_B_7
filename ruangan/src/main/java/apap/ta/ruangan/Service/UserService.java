@@ -4,4 +4,5 @@ import apap.ta.ruangan.Model.UserModel;
 
 public interface UserService {
     UserModel findByUsername(String username);
+    UserModel findByuuid(String id);
 }
