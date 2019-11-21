@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class=col-md-12>
+            <div class="card">
+                <div class="card-header text-white bg-secondary" th:text="'Ubah Jumlah Fasilitas'"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Nama Ruangan</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${ruangan.nama}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Kapasitas Ruangan</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${ruangan.kapasitas}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Nama Fasilitas</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${fasilitas.nama}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Jumlah Fasilitas</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${fasilitas.jumlah}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form style="display:inline-block" th:action="@{/ruangan/ubah-jumlah-fasilitas?idRuanganFasilitas={id}(id=${ruangFasilitas.id})}" th:object="${ruangFas}" method="post">
+                            
+                            <label for="jml" th:text="'Jumlah Fasilitas ' + ${fasilitas.nama} + ' pada Ruangan ' + ${ruangan.nama}"></label>
+                            <input id="jml" th:field="${ruangFas.jumlah_fasilitas}" type = "number" class="form-control"/>
+                            <input class = "btn btn-primary" type="submit" value="Submit"/>
+                        </form>
+                    </div>
+                    <div th:if = "${notif}" class="row">
+                        <div th:if = "${cukup}" class="alert alert-success" role="alert">
+                            Ubah jumlah fasilitas berhasil.
+                        </div>
+                        <div th:unless = "${cukup}" class="alert alert-danger" role="alert">
+                            Jumlah Fasilitas yang tersedia tidak memadai.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
