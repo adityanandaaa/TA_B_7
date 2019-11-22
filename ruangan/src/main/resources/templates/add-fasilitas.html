@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<br><br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Tambah Fasilitas
+                </div>
+                <div class="card-body" style="text-align: center">
+                    <form style="text-align: left; align-items: center" th:action="@{/fasilitas/add}" name="fasilitasRuangan" th:object="${fasilitasRuangan}" method="POST" >
+                        <div class="form-group">
+                            <label class="col-sm-4 col-form-label">Nama Fasilitas</label>
+                            <div class="col-sm-12">
+                                <input class="form-control" name="namaFasilitas" th:value="${namaFasilitas}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Jumlah</label>
+                            <div class="col-sm-12">
+                                <input class="form-control" th:field="${fasilitasRuangan.jumlah_fasilitas}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Ruangan</label>
+                            <div class="col-sm-12">
+                                <p>
+                                    <select  required = "true" th:field="${fasilitasRuangan.ruanganModel.id}" class="form-control">
+                                        <option th:each="ruangan_obj : ${listRuangan}" th:value="${ruangan_obj.id}" th:text="${ruangan_obj.nama}"></option>
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-block"> Tambah </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-12">
+                                <div class="alert alert-success" role="alert" style="text-align: center">
+                                    <h6 th:text="${message}"></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+<br>
+<br>
+</body>
+</html>

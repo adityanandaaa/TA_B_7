@@ -21,6 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
+                .antMatchers("/img/**").permitAll()
+                .antMatchers("/fasilitas/add").hasAnyAuthority("Admin TU")
+                .antMatchers("/fasilitas/pengadaanBuku").hasAnyAuthority("Admin TU")
                 .anyRequest().authenticated()
 
                 .and()
