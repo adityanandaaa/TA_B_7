@@ -10,6 +10,7 @@ import apap.ta.ruangan.Service.RuanganService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,5 +72,41 @@ public class RuanganController {
         model.addAttribute("pageFooter", "View Store");
 
         return "view-all-ruangan";
+    }
+
+    @RequestMapping(value = "/ubah-jumlah-fasilitas", method = RequestMethod.GET)
+    public String ubahJmlFasilitasForm(@RequestParam(value = "idRuanganFasilitas", required = true) Long idRuangFas, Model model) {
+        RuanganFasilitasModel ruanganFasilitasModel = ruanganFasilitasService.getRuanganFasilitasById(idRuangFas).get();
+        System.out.println(ruanganFasilitasModel.getId());
+        FasilitasModel fasilitasModel = ruanganFasilitasModel.getFasilitasModel();
+        RuanganModel ruanganModel = ruanganFasilitasModel.getRuanganModel();
+        RuanganFasilitasModel ruanganFasilitasToBe = new RuanganFasilitasModel();
+        ruanganFasilitasToBe.setJumlah_fasilitas(ruanganFasilitasModel.getJumlah_fasilitas());
+        model.addAttribute("ruangFasilitas", ruanganFasilitasModel);
+        model.addAttribute("ruangan", ruanganModel);
+        model.addAttribute("fasilitas", fasilitasModel);
+        model.addAttribute("ruangFas", ruanganFasilitasToBe);
+        model.addAttribute("notif", false);
+        return "form-ubah-jumlah-fasilitas";
+    }
+    @RequestMapping(value = "/ubah-jumlah-fasilitas", method = RequestMethod.POST)
+    public String ubahJmlFasilitasSubmit(@RequestParam(value = "idRuanganFasilitas", required = true) Long idRuangFas, @ModelAttribute RuanganFasilitasModel ruanganFasilitas, Model model) {
+        model.addAttribute("pageTitle", "Ubah Jumlah Fasilitas");
+        RuanganFasilitasModel ruanganFasilitasBefore = ruanganFasilitasService.getRuanganFasilitasById(idRuangFas).get();
+        FasilitasModel fasilitasModel = ruanganFasilitasBefore.getFasilitasModel();
+        Boolean isFasilitasEnough = ruanganFasilitasService.isFasilitasJumlahEnough(fasilitasModel, ruanganFasilitas.getJumlah_fasilitas(), ruanganFasilitasBefore.getJumlah_fasilitas());
+        model.addAttribute("cukup", isFasilitasEnough);
+        if (isFasilitasEnough) {
+            ruanganFasilitasService.ubahJumlahFasilitas(ruanganFasilitasBefore, ruanganFasilitas.getJumlah_fasilitas());
+        }
+        else {
+            ruanganFasilitas.setJumlah_fasilitas(ruanganFasilitasBefore.getJumlah_fasilitas());
+        }
+        model.addAttribute("ruangFasilitas", ruanganFasilitasBefore);
+        model.addAttribute("ruangan", ruanganFasilitasBefore.getRuanganModel());
+        model.addAttribute("fasilitas", ruanganFasilitasBefore.getFasilitasModel());
+        model.addAttribute("ruangFas", ruanganFasilitas);
+        model.addAttribute("notif", true);
+        return "form-ubah-jumlah-fasilitas";
     }
 }

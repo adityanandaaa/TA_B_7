@@ -20,7 +20,9 @@
                             <p>Nama</p>
                         </div>
                         <div class="col-md-8">
-                            <p th:text="${peminjamanruangan.ruanganModel.nama}"></p>
+<!--                            <p><a th:text="${peminjamanruangan.ruanganModel.nama}" th:href="@{/ruangan/view-ruangan?idRuangan={idRuangan}(idRuangan=${peminjamanruangan.ruanganModel.id})"></a></p>-->
+                            <p th:text="${peminjamanruangan.ruanganModel.nama}" ></p>
+
                         </div>
                     </div>
                     <div class="row">
@@ -71,6 +73,18 @@
                             <p th:text="${peminjamanruangan.jumlah_peserta}"></p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Username Peminjam</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${peminjamanruangan.userModelPeminjam.username}"></p>
+                        </div>
+                    </div>
+                    <form th:action="@{/ruangan/view-ruangan}" method="GET">
+                        <input type="hidden" th:name="idRuangan" th:value="${peminjamanruangan.ruanganModel.id}" />
+                        <button value="submit" class="btn btn-primary">Lihat Detail Ruangan</button>
+                    </form>
                 </div>
             </div>
         </div>

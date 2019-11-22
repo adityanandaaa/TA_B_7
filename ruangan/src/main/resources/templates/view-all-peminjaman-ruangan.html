@@ -10,9 +10,9 @@
 <nav th:replace="Fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
     <br>
-    <!--    <button class ="btn btn-primary btn-sm">-->
-    <!--        <a th:href ="@{/diagnosis-penyakit/tambah}" style="color: white"> Tambah Penyakit</a>-->
-    <!--    </button>-->
+        <button class ="btn btn-primary btn-sm">
+            <a th:href ="@{/peminjaman-ruangan/tambah}" style="color: white"> Pinjam Ruangan</a>
+        </button>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -30,6 +30,7 @@
                             <th>Tujuan </th>
                             <th>Keterangan</th>
                             <th>Jumlah Peserta</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -41,6 +42,7 @@
                             <td th:text="${peminjamanruangan.tujuan}"></td>
                             <td th:text="${peminjamanruangan.keterangan}"></td>
                             <td th:text="${peminjamanruangan.jumlah_peserta}"></td>
+
                             <td>
                                 <form th:action="@{/peminjaman-ruangan/view-peminjaman-ruangan}" method="GET">
                                     <input type="hidden" th:name="idPeminjamanRuangan" th:value="${peminjamanruangan.id}" />

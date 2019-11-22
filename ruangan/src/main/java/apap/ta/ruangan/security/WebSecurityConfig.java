@@ -17,6 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
@@ -24,6 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/fasilitas/add").hasAnyAuthority("Admin TU")
                 .antMatchers("/fasilitas/pengadaanBuku").hasAnyAuthority("Admin TU")
+                .antMatchers("/ruangan/ubah-jumlah-fasilitas**").hasAnyAuthority("Admin TU")
+                .antMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -46,13 +49,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     public void configAuthertication(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-    }
-
-    @Autowired
-    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(encoder())
-                .withUser("nadiem").password(encoder().encode("makarim"))
-                .roles("ADMIN");
     }
 }
