@@ -69,7 +69,7 @@ public class PeminjamanRuanganModel implements Serializable {
     @JoinColumn(name = "uuid_user_penyetuju")
     @OnDelete(action = OnDeleteAction.CASCADE)
     UserModel userModelPenyetuju;
-//,cascade=CascadeType.ALL
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_ruang")
     @OnDelete(action = OnDeleteAction.CASCADE)

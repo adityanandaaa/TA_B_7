@@ -9,7 +9,7 @@ public class PengajuanSuratResponse {
 
     private String message;
 
-    private List<PengajuanSurat> result;
+    private PengajuanSurat result;
 
     public String getStatus() {
         return status;
@@ -27,11 +27,11 @@ public class PengajuanSuratResponse {
         this.message = message;
     }
 
-    public List<PengajuanSurat> getResult() {
+    public PengajuanSurat getResult() {
         return result;
     }
 
-    public void setResult(List<PengajuanSurat> result) {
+    public void setResult(PengajuanSurat result) {
         this.result = result;
     }
 

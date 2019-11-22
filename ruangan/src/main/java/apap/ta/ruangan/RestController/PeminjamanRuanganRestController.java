@@ -48,32 +48,6 @@ public class PeminjamanRuanganRestController {
     @Autowired
     private PeminjamanRuanganService peminjamanRuanganService;
 
-//    @Autowired
-//    RestTemplate restTemplate;
-//
-//    @Bean
-//    public RestTemplate rest() {
-//        return new RestTemplate();
-//    }
-
-//    @GetMapping(value= "/listsurat")
-//    public String getStatus() {
-////        String path = Setting.pilotUrl+"/pilot?licenseNumber="+ licenseNumber;
-//        List<PengajuanSurat> pengajuanSuratList = new ArrayList<>();
-//        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/3" ;
-//        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
-//        pengajuanSuratList = response.getResult();
-//        System.out.println(pengajuanSuratList);
-//        return pengajuanSuratList.toString();
-////        return restTemplate.getForEntity(path, PengajuanSuratResponse.class).getBody().getResult().toString();
-//    }
-
-//    @GetMapping(value = "/listsurat")
-//    private Mono<PengajuanSurat> getStatus(){
-//        return peminjamanRuanganRestService.retrieveListSurat();
-//    }
-
-
     @PostMapping(value = "/pinjem")
     private BaseResponse<PeminjamanRuanganModel> createPeminjamanRuangan(@Valid @RequestBody PeminjamanRuanganModel peminjamanruangan, BindingResult bindingResult) throws ParseException {
         BaseResponse<PeminjamanRuanganModel> response = new BaseResponse<PeminjamanRuanganModel>();
@@ -110,7 +84,6 @@ public class PeminjamanRuanganRestController {
                 }
             }
 
-
             System.out.println(peminjamanruangan.getRuanganModel().getId());
             boolean checkedsama = false;
 
@@ -131,7 +104,8 @@ public class PeminjamanRuanganRestController {
                     checkedsama = true;
                     if (!(mulai.compareTo(mulaidb) == 0)) {
                         System.out.println("tembus bdea waktu");
-                        if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                        if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                                || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                             if (mulai.compareTo(akhir) < 0) {
                                 if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
                                     peminjamanruangan.setIs_disetujui(false);
@@ -159,7 +133,8 @@ public class PeminjamanRuanganRestController {
                     }
                 } else {
                     System.out.println("kelempar ke beda hari");
-                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                            || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                         if (mulai.compareTo(akhir) < 0) {
                             if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
 
@@ -187,7 +162,8 @@ public class PeminjamanRuanganRestController {
 
 //        System.out.println(peminjamanRuanganList);
             for (PeminjamanRuanganModel peminjamanRuanganModel1 : peminjamanRuanganListbeda) {
-                if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                        || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                     if (mulai.compareTo(akhir) < 0) {
                         if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
                             if (checkedsama == false) {
@@ -216,39 +192,6 @@ public class PeminjamanRuanganRestController {
         }
         return response;
     }
-
-//                else {
-//                    System.out.println("kelempar ke beda ruangan");
-//                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
-//                        if (mulai.compareTo(akhir) < 0) {
-//                            if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
-//                                if(checkedsama==false){
-//
-//                                    peminjamanruangan.setIs_disetujui(false);
-//                                    peminjamanruangan.setUserModelPenyetuju(null);
-//                                    peminjamanRuanganRestService.createPeminjamanRuangan(peminjamanruangan);
-//                                    response.setStatus(200);
-//                                    response.setMessage("success");
-//                                    response.setResult(peminjamanruangan);
-//                                    System.out.println("jebol ruangan sama beda hari");
-//                                }else{
-//                                    response.setStatus(500);
-//                                    response.setMessage("Sudah ada peminjaman pada waktu dan tanggal tersebut");
-//                                }
-//                            }
-//                        } else {
-//                            response.setStatus(500);
-//                            response.setMessage("Waktu Peminjaman harus lebih awal");
-//                        }
-//                    } else {
-//                        response.setStatus(500);
-//                        response.setMessage("Tanggal Peminjaman harus lebih awal");
-//                    }
-
-
-
-
-
 
     @GetMapping(value = "/listruangan")
     private BaseResponse<List<RuanganModel>> retrieveRuangan(){

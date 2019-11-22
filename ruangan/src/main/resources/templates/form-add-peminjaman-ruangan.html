@@ -17,10 +17,7 @@
             <div class="card">
                 <div class="card-header ">Peminjaman Ruangan</div>
                 <div class="card-body">
-                    <form th:action="@{/peminjaman-ruangan/tambah}"
-
-                          method="POST" >
-<!--                        <div >th:object="${peminjamanruangan}"-->
+                    <form th:action="@{/peminjaman-ruangan/tambah}" method="POST" >
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
@@ -38,7 +35,7 @@
                                     <p>Waktu Mulai</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="time" name="waktu_mulai" min="09:00" max="18:00" th:field="*{peminjamanruangan.waktu_mulai}" required="true"/>
+                                    <input class="form-control" type="time" name="waktu_mulai" min="08:59" max="18:01" th:field="*{peminjamanruangan.waktu_mulai}" required="true"/>
                                 </div>
                             </div>
                                 <div class="row">
@@ -46,7 +43,7 @@
                                         <p>Waktu Selesai</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="time" name="waktu_selesai" min="09:30" max="18:30" th:field="*{peminjamanruangan.waktu_selesai}" required="true"/>
+                                        <input class="form-control" type="time" name="waktu_selesai" min="09:29" max="18:31" th:field="*{peminjamanruangan.waktu_selesai}" required="true"/>
                                     </div>
                                 </div>
                             <div class="row">
@@ -89,18 +86,15 @@
                                         <input class="form-control" type="number" name="jumlah_peserta" th:field="*{peminjamanruangan.jumlah_peserta}"required="true"/>
                                     </div>
                                 </div>
+
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>Ruangan</p>
+                                    <p>Nomor Surat</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control container1"  th:field="*{pengajuanSurat.status}" >
-                                        <option value="">-- Silahkan Pilih Surat Dukungan --</option>
-                                        <option th:each="surat : ${listPengajuanSurat}"
-                                                th:text="'Keterangan : '+ ${surat.keterangan} +' - '+ 'Status : '+${surat.status}"
-                                                th:value="${surat.status}" ></option>
-                                    </select>
+                                    <input class="form-control" type="number" name="nomorsurat" th:field="*{pengajuanSuratModel.hasil}" />
                                 </div>
+                            </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -108,7 +102,6 @@
                                 </div>
                             </div>
                         </div>
-<!--                        </div>-->
                     </form>
                 </div>
             </div>
