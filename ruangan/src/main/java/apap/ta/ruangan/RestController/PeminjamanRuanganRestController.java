@@ -104,7 +104,8 @@ public class PeminjamanRuanganRestController {
                     checkedsama = true;
                     if (!(mulai.compareTo(mulaidb) == 0)) {
                         System.out.println("tembus bdea waktu");
-                        if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                        if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                                || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                             if (mulai.compareTo(akhir) < 0) {
                                 if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
                                     peminjamanruangan.setIs_disetujui(false);
@@ -132,7 +133,8 @@ public class PeminjamanRuanganRestController {
                     }
                 } else {
                     System.out.println("kelempar ke beda hari");
-                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                            || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                         if (mulai.compareTo(akhir) < 0) {
                             if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
 
@@ -160,7 +162,8 @@ public class PeminjamanRuanganRestController {
 
 //        System.out.println(peminjamanRuanganList);
             for (PeminjamanRuanganModel peminjamanRuanganModel1 : peminjamanRuanganListbeda) {
-                if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                        || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                     if (mulai.compareTo(akhir) < 0) {
                         if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
                             if (checkedsama == false) {

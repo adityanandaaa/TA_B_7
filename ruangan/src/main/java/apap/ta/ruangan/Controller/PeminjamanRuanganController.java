@@ -98,7 +98,6 @@ public class PeminjamanRuanganController {
                 calonruangan = ruanganModel;
             }
         }
-
         PengajuanSurat pengajuanSurat ;
         String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
         PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
@@ -148,7 +147,8 @@ public class PeminjamanRuanganController {
                 checkedsama = true;
                 if (!(mulai.compareTo(mulaidb) == 0)) {
                     System.out.println("tembus bdea waktu");
-                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+                    if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+                            || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                         if (mulai.compareTo(akhir) < 0) {
                             if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
                                 if (pengajuanSurat.getStatus() >= 2) {
@@ -193,12 +193,8 @@ public class PeminjamanRuanganController {
                 System.out.println("kelempar ke beda hari");
                 if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
                     if (mulai.compareTo(akhir) < 0) {
-                        if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
-                            System.out.println(pengajuanSurat);
-                            System.out.println(pengajuanSurat.getIdUser());
-                            System.out.println(pengajuanSurat.getKeterangan());
-                            System.out.println(pengajuanSurat.getJenisSurat());
-                            System.out.println(pengajuanSurat.getStatus());
+                        if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()
+                        || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                             if (pengajuanSurat.getStatus() >= 2) {
                                 peminjamanruangan.setIs_disetujui(true);
                                 peminjamanruangan.setUserModelPeminjam(login);
@@ -237,7 +233,8 @@ public class PeminjamanRuanganController {
 
 //        System.out.println(peminjamanRuanganList);
         for (PeminjamanRuanganModel peminjamanRuanganModel1 : peminjamanRuanganListbeda) {
-            if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
+            if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())
+            || peminjamanruangan.getTanggal_mulai().equals(peminjamanruangan.getTanggal_selesai())) {
                 if (mulai.compareTo(akhir) < 0) {
                     if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
                         if (checkedsama == false) {

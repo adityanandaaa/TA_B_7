@@ -17,10 +17,7 @@
             <div class="card">
                 <div class="card-header ">Peminjaman Ruangan</div>
                 <div class="card-body">
-                    <form th:action="@{/peminjaman-ruangan/tambah}"
-
-                          method="POST" >
-
+                    <form th:action="@{/peminjaman-ruangan/tambah}" method="POST" >
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
@@ -38,7 +35,7 @@
                                     <p>Waktu Mulai</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="time" name="waktu_mulai" min="09:00" max="18:00" th:field="*{peminjamanruangan.waktu_mulai}" required="true"/>
+                                    <input class="form-control" type="time" name="waktu_mulai" min="08:59" max="18:01" th:field="*{peminjamanruangan.waktu_mulai}" required="true"/>
                                 </div>
                             </div>
                                 <div class="row">
@@ -46,7 +43,7 @@
                                         <p>Waktu Selesai</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="form-control" type="time" name="waktu_selesai" min="09:30" max="18:30" th:field="*{peminjamanruangan.waktu_selesai}" required="true"/>
+                                        <input class="form-control" type="time" name="waktu_selesai" min="09:29" max="18:31" th:field="*{peminjamanruangan.waktu_selesai}" required="true"/>
                                     </div>
                                 </div>
                             <div class="row">
