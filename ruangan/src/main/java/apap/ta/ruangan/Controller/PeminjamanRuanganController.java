@@ -6,6 +6,7 @@ import apap.ta.ruangan.Model.RuanganModel;
 import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Repository.UserDb;
 import apap.ta.ruangan.Rest.PengajuanSurat;
+import apap.ta.ruangan.Rest.PengajuanSuratModel;
 import apap.ta.ruangan.Rest.PengajuanSuratResponse;
 import apap.ta.ruangan.Service.PeminjamanRuanganService;
 import apap.ta.ruangan.Service.RuanganService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,25 +61,26 @@ public class PeminjamanRuanganController {
     public String addPeminjamanRuanganFormPage(Model model) {
         PeminjamanRuanganModel peminjamanRuanganModel = new PeminjamanRuanganModel();
 
-        List<PengajuanSurat> pengajuanSuratList = new ArrayList<>();
 
-        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/ruangan" ;
-        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
-        pengajuanSuratList = response.getResult();
-        
         PengajuanSurat pengajuanSurat = new PengajuanSurat();
+        PengajuanSuratModel pengajuanSuratModel = new PengajuanSuratModel();
+        PengajuanSuratResponse pengajuanSuratResponse = new PengajuanSuratResponse();
+        Long nomorsurat = 0L;
+        model.addAttribute("nomorsurat",nomorsurat);
+        model.addAttribute("pengajuanSuratModel",pengajuanSuratModel);
+        model.addAttribute("pengajuanSuratResponse",pengajuanSuratResponse);
         model.addAttribute("pengajuanSurat",pengajuanSurat);
         model.addAttribute("peminjamanruangan", peminjamanRuanganModel);
         model.addAttribute("listOfRuangan",ruanganService.getRuanganList());
         model.addAttribute("pageTitle", "Add Peminjaman Ruangan");
-        model.addAttribute("listPengajuanSurat",pengajuanSuratList);
+
 
         return "form-add-peminjaman-ruangan";
     }
 
     @RequestMapping(value = "/tambah", method = RequestMethod.POST)
-    public String addPeminjamanRuanganPage(@ModelAttribute PeminjamanRuanganModel peminjamanruangan,PengajuanSurat pengajuanSurat,
-                                           Model model, Principal principal,final BindingResult bindingResult) throws ParseException {
+    public String addPeminjamanRuanganPage(@ModelAttribute PeminjamanRuanganModel peminjamanruangan,
+                                           Model model, PengajuanSuratModel pengajuanSuratModel) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<UserModel> listuser = userDb.findAll();
         UserModel login = null;
@@ -95,16 +98,13 @@ public class PeminjamanRuanganController {
                 calonruangan = ruanganModel;
             }
         }
-//        List<PengajuanSurat> pengajuanSuratList = new ArrayList<>();
-//
-//        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/ruangan" ;
-//        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
-//        pengajuanSuratList = response.getResult();
-//        for(PengajuanSurat pengajuanSurat1 : pengajuanSuratList){
-//            if(pengajuanSurat1.getStatus() == pengajuanSurat.getStatus()){
-//                pengajuanSurat = pengajuanSurat1;
-//            }
-//        }
+
+        PengajuanSurat pengajuanSurat ;
+        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
+        PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
+        pengajuanSurat = response.getResult();
+
+        UserModel userpenyetuju = userDb.findById(pengajuanSurat.getIdUser());
         String messages;
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         Date mulai = sdf.parse(peminjamanruangan.getWaktu_mulai());
@@ -154,7 +154,7 @@ public class PeminjamanRuanganController {
                                 if (pengajuanSurat.getStatus() >= 2) {
                                     peminjamanruangan.setIs_disetujui(true);
                                     peminjamanruangan.setUserModelPeminjam(login);
-                                    peminjamanruangan.setUserModelPenyetuju(null);
+                                    peminjamanruangan.setUserModelPenyetuju(userpenyetuju);
 
                                     peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                     model.addAttribute("peminjamanruangan", peminjamanruangan);
@@ -194,10 +194,15 @@ public class PeminjamanRuanganController {
                 if (peminjamanruangan.getTanggal_mulai().before(peminjamanruangan.getTanggal_selesai())) {
                     if (mulai.compareTo(akhir) < 0) {
                         if (peminjamanruangan.getJumlah_peserta() < calonruangan.getKapasitas()) {
+                            System.out.println(pengajuanSurat);
+                            System.out.println(pengajuanSurat.getIdUser());
+                            System.out.println(pengajuanSurat.getKeterangan());
+                            System.out.println(pengajuanSurat.getJenisSurat());
+                            System.out.println(pengajuanSurat.getStatus());
                             if (pengajuanSurat.getStatus() >= 2) {
                                 peminjamanruangan.setIs_disetujui(true);
                                 peminjamanruangan.setUserModelPeminjam(login);
-                                peminjamanruangan.setUserModelPenyetuju(null);
+                                peminjamanruangan.setUserModelPenyetuju(userpenyetuju);
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);
@@ -239,7 +244,7 @@ public class PeminjamanRuanganController {
                             if (pengajuanSurat.getStatus() >= 2) {
                                 peminjamanruangan.setIs_disetujui(true);
                                 peminjamanruangan.setUserModelPeminjam(login);
-                                peminjamanruangan.setUserModelPenyetuju(null);
+                                peminjamanruangan.setUserModelPenyetuju(userpenyetuju);
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);

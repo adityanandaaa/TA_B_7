@@ -20,7 +20,7 @@
                     <form th:action="@{/peminjaman-ruangan/tambah}"
 
                           method="POST" >
-<!--                        <div >th:object="${peminjamanruangan}"-->
+
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
@@ -89,18 +89,15 @@
                                         <input class="form-control" type="number" name="jumlah_peserta" th:field="*{peminjamanruangan.jumlah_peserta}"required="true"/>
                                     </div>
                                 </div>
+
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>Ruangan</p>
+                                    <p>Nomor Surat</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control container1"  th:field="*{pengajuanSurat.status}" >
-                                        <option value="">-- Silahkan Pilih Surat Dukungan --</option>
-                                        <option th:each="surat : ${listPengajuanSurat}"
-                                                th:text="'Keterangan : '+ ${surat.keterangan} +' - '+ 'Status : '+${surat.status}"
-                                                th:value="${surat.status}" ></option>
-                                    </select>
+                                    <input class="form-control" type="number" name="nomorsurat" th:field="*{pengajuanSuratModel.hasil}" />
                                 </div>
+                            </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -108,7 +105,6 @@
                                 </div>
                             </div>
                         </div>
-<!--                        </div>-->
                     </form>
                 </div>
             </div>
