@@ -70,7 +70,7 @@
 			<version>0.0.20131108.vaadin1</version>
 			<scopes>compile</scopes>
 		</dependency>
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

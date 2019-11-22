@@ -7,4 +7,9 @@ public interface UserService {
     public String encrypt(String password);
     UserModel getUserByUsername(String username);
     boolean checkPassword(String password);
+
+    UserModel getUserByUSername(String name);
+    UserModel findByUsername(String username);
+    UserModel findByuuid(String id);
+
 }

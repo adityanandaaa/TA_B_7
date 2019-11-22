@@ -9,9 +9,12 @@ import apap.ta.ruangan.Model.RoleModel;
 import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Repository.UserDb;
 
-@Service
-public class UserServiceImpl implements UserService{
 
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDb userDb;
@@ -49,4 +52,21 @@ public class UserServiceImpl implements UserService{
        return false;
     } 
 
+
+    @Override
+    public UserModel getUserByUSername(String name) {
+        return userDb.findByUsername(name);
+    }
+
+    @Override
+    public UserModel findByUsername(String username) {
+        return userDb.findByUsername(username);
+    }
+
+    @Override
+    public UserModel findByuuid(String id){
+        return userDb.findById(id);
+    }
 }
+
+

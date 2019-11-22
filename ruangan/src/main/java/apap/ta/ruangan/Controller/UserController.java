@@ -28,9 +28,18 @@ import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Rest.BaseResponse;
 import apap.ta.ruangan.Service.RoleService;
 import apap.ta.ruangan.Service.UserRestService;
+import apap.ta.ruangan.Service.UserService;
 import reactor.core.publisher.Mono;
 import apap.ta.ruangan.Rest.GuruResponse;
 import apap.ta.ruangan.Rest.SiswaResponse;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class UserController{
@@ -38,7 +47,8 @@ public class UserController{
     private UserRestService userRestService;
     @Autowired
     private RoleService roleService;
-
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value="/add-user-form")
     private String createUserForm(Model model){
@@ -50,7 +60,6 @@ public class UserController{
         model.addAttribute("user", user.getId());
         return "form-add-user";
     }
-
 
     @RequestMapping(value="/add-user-detail/")
     private String createUser(@ModelAttribute  UserModel user,  Model model){
@@ -83,4 +92,70 @@ public class UserController{
         return userRestService.postStatusGuru(guru).block();
     }
 
+    @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
+    private String viewProfile(Model model){
+        model.addAttribute("pageTitle", "Profil");
+        UserModel loggedUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        String role = "default";
+        long idRole = loggedUser.getRole().getId();
+        if(idRole==1 | idRole==3){
+            role = "teachers";
+        }
+        else if(idRole==2 | idRole==5){
+            role = "employees";
+        }
+        else if(idRole==6 | idRole==7){
+            role="decide";
+        }
+        else {
+            role = "students";
+        }
+        Map<String, String> profile = null;
+        model.addAttribute("loggedUser", loggedUser);
+        if( role.equals("teachers") || role.equals("students") || role.equals("employees")){
+            Map<String, Object> allUsers = userRestService.getUsers(role);
+            ArrayList list = (ArrayList) allUsers.get("result");
+            ArrayList<String> uuidList = new ArrayList<String>();
+            for(int i = 0; i < list.size(); i++){
+                LinkedHashMap<String, Object> ab = (LinkedHashMap<String, Object>) list.get(i);
+                uuidList.add((String)ab.get("idUser"));
+            }
+            if(uuidList.contains(loggedUser.getId())){
+                profile = userRestService.getUserProfile(role, loggedUser.getId());
+            }
+        }
+        else if( role.equals("decide")){
+            Map<String, Object> allUsers = userRestService.getUsers("teachers");
+            ArrayList list = (ArrayList) allUsers.get("result");
+            ArrayList<String> uuidList = new ArrayList<String>();
+            for(int i = 0; i < list.size(); i++){
+                LinkedHashMap<String, Object> ab = (LinkedHashMap<String, Object>) list.get(i);
+                uuidList.add((String)ab.get("idUser"));
+            }
+            if(uuidList.contains(loggedUser.getId())){
+                profile = userRestService.getUserProfile("teachers", loggedUser.getId());
+                role = "teachers";
+            }
+            else {
+                allUsers = userRestService.getUsers("employees");
+                list = (ArrayList) allUsers.get("result");
+                uuidList = new ArrayList<String>();
+                for(int i = 0; i < list.size(); i++){
+                    LinkedHashMap<String, Object> ab = (LinkedHashMap<String, Object>) list.get(i);
+                    uuidList.add((String)ab.get("idUser"));
+                }
+                if(uuidList.contains(loggedUser.getId())){
+                    profile = userRestService.getUserProfile("employees", loggedUser.getId());
+                    role = "employees";
+                }
+            }
+        }
+        model.addAttribute("profile", profile);
+        model.addAttribute("role", role);
+        model.addAttribute("teachers", "teachers");
+        model.addAttribute("employees", "employees");
+
+        return "profile";
+    }
 }
+

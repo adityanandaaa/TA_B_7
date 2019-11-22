@@ -23,12 +23,25 @@ import apap.ta.ruangan.Rest.SiswaResponse;
 import io.netty.handler.codec.json.JsonObjectDecoder;
 import reactor.core.publisher.Mono;
 
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
+
 @Service
 public class UserRestServiceImpl implements UserRestService {
     private final WebClient webClient;
 
     @Autowired
     private UserDb userDb;
+
+    
+    // public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
+    //     this.webClient = webClientBuilder.baseUrl(Setting.baseUrl).build();
+    // }
+
+    public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl(Setting.sivitasUrl).build();
+    }
 
     @Override
     public UserModel createUser(UserModel user) {
@@ -63,9 +76,6 @@ public class UserRestServiceImpl implements UserRestService {
         return false;
     }
 
-    public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(Setting.baseUrl).build();
-    }
 
     @Override
     public Mono<GuruResponse> postStatusGuru(GuruResponse guru) throws JSONException{
@@ -78,7 +88,7 @@ public class UserRestServiceImpl implements UserRestService {
         data.put("tanggalLahir", guru.getTanggal_lahir());
         data.put("alamat", guru.getAlamat());
         data.put("telepon", guru.getTelepon());
-        return this.webClient.post().uri("/teachers").contentType(MediaType.APPLICATION_JSON).syncBody(data.toString()).retrieve().bodyToMono(GuruResponse.class);
+        return this.webClient.post().uri("/api/teachers").contentType(MediaType.APPLICATION_JSON).syncBody(data.toString()).retrieve().bodyToMono(GuruResponse.class);
     }
 
     @Override
@@ -92,7 +102,15 @@ public class UserRestServiceImpl implements UserRestService {
         data.put("tanggalLahir", siswa.getTanggal_lahir());
         data.put("alamat", siswa.getAlamat());
         data.put("telepon", siswa.getTelepon());
-        return this.webClient.post().uri("/students").contentType(MediaType.APPLICATION_JSON).syncBody(data.toString()).retrieve().bodyToMono(SiswaResponse.class);
+        return this.webClient.post().uri("/api/students").contentType(MediaType.APPLICATION_JSON).syncBody(data.toString()).retrieve().bodyToMono(SiswaResponse.class);
     }
 
+    @Override
+    public Map<String, String> getUserProfile(String role, String uuid) {
+        return this.webClient.get().uri("/api/"+role+"/"+uuid).retrieve().bodyToMono(Map.class).block();
+    }
+    @Override
+    public Map<String, Object> getUsers(String role) {
+        return this.webClient.get().uri("/api/"+role).retrieve().bodyToMono(Map.class).block();
+    }
 }
