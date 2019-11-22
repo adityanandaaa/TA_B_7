@@ -1,6 +1,6 @@
 package apap.ta.ruangan.Rest;
 
 public class Setting {
-//    final public static String baseUrl = "https://http://localhost:8080";
+    final public static String baseUrl = "http://sivitas.herokuapp.com/api";
 
 }
