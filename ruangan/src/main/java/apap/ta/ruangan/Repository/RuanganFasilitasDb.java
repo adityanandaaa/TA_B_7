@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface RuanganFasilitasDb extends JpaRepository<RuanganFasilitasModel,Long> {
     List<RuanganFasilitasModel> findByRuanganModel(RuanganModel ruanganModel);
+    RuanganFasilitasModel findByRuanganModelAndFasilitasModel(RuanganModel ruang, FasilitasModel fasilitas);
     Optional<RuanganFasilitasModel> findById(Long id);
     List<RuanganFasilitasModel> findByFasilitasModel(FasilitasModel fasilitasModel);
 }

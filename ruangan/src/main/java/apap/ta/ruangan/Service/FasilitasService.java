@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface FasilitasService {
     List<FasilitasModel> getFasilitasList();
+    Long getAvailableStok(FasilitasModel fasilitasModel);
+    FasilitasModel getFasilitasById(Long id);
+    FasilitasModel getFasilitasByNama(String nama);
 }

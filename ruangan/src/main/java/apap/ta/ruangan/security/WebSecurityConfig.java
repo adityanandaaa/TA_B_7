@@ -23,6 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/img/**").permitAll()
+                .antMatchers("/fasilitas/add").hasAnyAuthority("Admin TU")
+                .antMatchers("/fasilitas/pengadaanBuku").hasAnyAuthority("Admin TU")
                 .antMatchers("/ruangan/ubah-jumlah-fasilitas**").hasAnyAuthority("Admin TU")
                 .antMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
@@ -40,12 +42,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
-    @Qualifier("userDetailsServiceImpl")
+    /*@Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
     public void configAuthertication(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    }*/
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+            .passwordEncoder(encoder())
+            .withUser("nadiem").password(encoder().encode("makarim")).roles("ADMIN");
     }
 }
