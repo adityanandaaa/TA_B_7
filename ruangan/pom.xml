@@ -68,7 +68,7 @@
 			<groupId>com.vaadin.external.google</groupId>
 			<artifactId>android-json</artifactId>
 			<version>0.0.20131108.vaadin1</version>
-			<scopes>compile</scopes>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -101,16 +101,16 @@
 						</goals>
 					</execution> </executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<version>3.8.0</version>-->
+<!--				<configuration>-->
+<!--					<source>${jdk.version}</source>-->
+<!--					<target>${jdk.version}</target>-->
+<!--					<encoding>${project.build.sourceEncoding}</encoding>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
