@@ -61,4 +61,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
+    @Autowired
+    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(encoder())
+                .withUser("nadiem").password(encoder().encode("makarim"))
+                .roles("Admin TU");
+    }
+
 }
