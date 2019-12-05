@@ -31,11 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/ruangan/ubah-jumlah-fasilitas**").hasAnyAuthority("Admin TU")
                 .antMatchers("/ruangan/hapus-fasilitas**").hasAnyAuthority("Admin TU")
                 .antMatchers("/peminjaman-ruangan/ubah-persetujuan**").hasAnyAuthority("Admin TU")
-//                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Admin TU")
-//                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Siswa")
-//                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Guru")
-//                .antMatchers("/peminjaman-ruangan/tambah").hasAnyAuthority("Siswa")
-//                .antMatchers("/peminjaman-ruangan/tambah").hasAnyAuthority("Guru")
+                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Admin TU","Guru","Siswa")
+                .antMatchers("/peminjaman-ruangan/tambah").hasAnyAuthority("Siswa","Guru")
                 .antMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
 
