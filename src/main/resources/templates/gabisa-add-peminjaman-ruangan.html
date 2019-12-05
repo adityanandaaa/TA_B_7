@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <h2 class="alert alert-danger">Gagal!</h2>
+    <br>
+    <br>
+    <h3 th:text = ${messages}></h3>
+</div>
+
+</body>
+</html>

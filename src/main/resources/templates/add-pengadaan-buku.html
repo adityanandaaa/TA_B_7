@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<br> <br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Pengadaan Fasilitas Buku</b>
+                </div>
+                <div class="card-body" style="text-align: center">
+                    <form style="text-align: left" th:action="@{/fasilitas/pengadaanBuku}" th:object="${pengadaanBuku}" name="pengadaanBuku" method="POST">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Judul</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" th:field="*{judul}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Pengarang</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" th:field="*{pengarang}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Penerbit</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" th:field="*{penerbit}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Jumlah</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" th:field="*{jumlah}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Harga</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" th:field="*{harga}">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block"> Submit </button>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-12">
+                                <div class="alert alert-success" role="alert" style="text-align: center">
+                                    <h6 th:text="${message}"></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
