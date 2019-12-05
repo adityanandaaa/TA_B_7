@@ -64,38 +64,6 @@ public class FasilitasController {
         ruanganFasilitasService.addFasilitas(fasilitasRuangan, namaFasilitasLower);
         RuanganModel ruangan = ruanganService.getRuanganById(fasilitasRuangan.getRuanganModel().getId());
         String message = fasilitasRuangan.getJumlah_fasilitas() + " " + namaFasilitas + " berhasil ditambahkan ke ruangan " + ruangan.getNama()  + "!";
-//        FasilitasModel fasilitas = fasilitasService.getFasilitasById(fasilitasRuangan.getFasilitasModel().getId());
-//        Long jmlFasilitasTersedia = fasilitasService.getAvailableStok(fasilitas);
-//        if(jmlFasilitasTersedia == 0){
-//            String message = "Tidak ada " + fasilitas.getNama() + " yang tersedia untuk ditambahkan ke ruangan";
-//            model.addAttribute("message", message);
-//            return "form-add-fasilitas";
-//        }
-//        else{
-//            if(fasilitasRuangan.getJumlah_fasilitas() > jmlFasilitasTersedia){
-//                String message = "Fasilitas tidak boleh melebihi " + jmlFasilitasTersedia + " buah";
-//                model.addAttribute("message", message );
-//                return "form-add-fasilitas";
-//            }
-//            else{
-//                ruanganFasilitasService.addFasilitasRuangan(fasilitasRuangan);
-//                RuanganModel ruangan = ruanganService.getRuanganById(fasilitasRuangan.getRuanganModel().getId());
-//                if(ruangan.getListFasilitas()== null) {
-//                    ruangan.setListFasilitas(new ArrayList<RuanganFasilitasModel>());
-//                }
-//                ruangan.getListFasilitas().add(fasilitasRuangan);
-//
-//                FasilitasModel fasilitasfix = fasilitasService.getFasilitasById(fasilitasRuangan.getRuanganModel().getId());
-//                if(fasilitasfix.getListRuangan()== null) {
-//                    fasilitasfix.setListRuangan(new ArrayList<RuanganFasilitasModel>());
-//                }
-//                fasilitasfix.getListRuangan().add(fasilitasRuangan);
-//
-//                String message = fasilitasRuangan.getJumlah_fasilitas() +" " + fasilitasfix.getNama() + " berhasil ditambahkan ke ruangan " + ruangan.getNama();
-//                model.addAttribute("message", message);
-//                return "form-add-fasilitas";
-//            }
-//        }
         RuanganFasilitasModel fasilitasRuanganObj = new RuanganFasilitasModel();
 
         String namaFasilitas2 = "";

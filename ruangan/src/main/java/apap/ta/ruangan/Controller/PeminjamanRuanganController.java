@@ -10,6 +10,7 @@ import apap.ta.ruangan.Rest.PengajuanSuratModel;
 import apap.ta.ruangan.Rest.PengajuanSuratResponse;
 import apap.ta.ruangan.Service.PeminjamanRuanganService;
 import apap.ta.ruangan.Service.RuanganService;
+import apap.ta.ruangan.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
@@ -55,6 +56,9 @@ public class PeminjamanRuanganController {
 
     @Autowired
     private UserDb userDb;
+
+    @Autowired
+    private UserService userService;
 
 
     @RequestMapping(value = "/tambah", method = RequestMethod.GET)
@@ -298,18 +302,41 @@ public class PeminjamanRuanganController {
     }
 
     @RequestMapping(value = "/peminjaman-ruangan-all", method = RequestMethod.GET)
-    public String viewAllruangan(Model model) {
+    public String viewAllruangan(Model model,Authentication authentication) {
+        String role = authentication.getAuthorities().toString();
+        model.addAttribute("role",role);
 
 
-        List<PeminjamanRuanganModel> peminjamanRuanganList = peminjamanRuanganService.getPeminjamanRuanganList();
-        List<RuanganModel> ruanganModelList = ruanganService.getRuanganList();
+            List<PeminjamanRuanganModel> peminjamanRuanganList = peminjamanRuanganService.getPeminjamanRuanganList();
+            List<RuanganModel> ruanganModelList = ruanganService.getRuanganList();
 
-        model.addAttribute("peminjamanRuanganList", peminjamanRuanganList);
-        model.addAttribute("ruanganModelList",ruanganModelList);
-        model.addAttribute("pageTitle", "All Peminjaman Ruangan");
+            model.addAttribute("peminjamanRuanganList", peminjamanRuanganList);
+            model.addAttribute("ruanganModelList", ruanganModelList);
+            model.addAttribute("pageTitle", "All Peminjaman Ruangan");
+            model.addAttribute("pageFooter", "View Store");
+            UserModel loggedUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            model.addAttribute("isAdminTU", loggedUser.getRole().getId() == 2);
+
+            return "view-all-peminjaman-ruangan";
+
+    }
+    @RequestMapping(value = "/ubah-persetujuan", method = RequestMethod.GET)
+    public String ubahPersetujuanForm(@RequestParam(value = "idPeminjamanRuangan", required = true) Long idPeminjamanRuangan, Model model){
+        PeminjamanRuanganModel peminjamanruangan = peminjamanRuanganService.getPeminjamanRuanganById(idPeminjamanRuangan);
+        model.addAttribute("peminjamanruangan", peminjamanruangan);
+        model.addAttribute("pageTitle", "Ubah Persetujuan Peminjaman Ruangan");
         model.addAttribute("pageFooter", "View Store");
 
-        return "view-all-peminjaman-ruangan";
+        return "form-ubah-persetujuan";
     }
+    @RequestMapping(value = "/ubah-persetujuan", method = RequestMethod.POST)
+    public String ubahPersetujuanSubmit(@RequestParam(value = "idPeminjamanRuangan", required = true) Long idPeminjamanRuangan, @ModelAttribute PeminjamanRuanganModel peminjamanRuanganModel, Model model){
+        UserModel loggedUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        PeminjamanRuanganModel peminjamanruangan = peminjamanRuanganService.ubahPersetujuan(idPeminjamanRuangan, peminjamanRuanganModel.getIs_disetujui(), loggedUser);
+        model.addAttribute("peminjamanruangan", peminjamanruangan);
+        model.addAttribute("pageTitle", "Ubah Persetujuan Peminjaman Ruangan");
+        model.addAttribute("pageFooter", "View Store");
 
+        return "form-ubah-persetujuan";
+    }
 }

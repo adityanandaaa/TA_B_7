@@ -4,10 +4,13 @@ package apap.ta.ruangan.Controller;
 import apap.ta.ruangan.Model.FasilitasModel;
 import apap.ta.ruangan.Model.RuanganFasilitasModel;
 import apap.ta.ruangan.Model.RuanganModel;
+import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Service.FasilitasService;
 import apap.ta.ruangan.Service.RuanganFasilitasService;
 import apap.ta.ruangan.Service.RuanganService;
+import apap.ta.ruangan.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +33,9 @@ public class RuanganController {
 
     @Autowired
     private FasilitasService fasilitasService;
+
+    @Autowired
+    private UserService userService;
     @RequestMapping(value = "/view-ruangan", method = RequestMethod.GET)
     public String view(@RequestParam(value = "idRuangan", required = true) Long idRuangan, Model model) {
         RuanganModel ruangan = ruanganService.getRuanganById(idRuangan);
@@ -57,6 +63,8 @@ public class RuanganController {
         model.addAttribute("ruangan", ruangan);
         model.addAttribute("pageTitle", "View Ruangan");
         model.addAttribute("pageFooter", "View Store");
+        UserModel loggedUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("isAdminTU", loggedUser.getRole().getId() == 2);
 
         // Return view template
         return "view-ruangan";
@@ -109,4 +117,18 @@ public class RuanganController {
         model.addAttribute("notif", true);
         return "form-ubah-jumlah-fasilitas";
     }
+
+    @RequestMapping(value = "/hapus-fasilitas")
+    public String hapusFasilitas(@RequestParam(value = "idRuanganFasilitas", required = true) Long idRuangFas, @ModelAttribute RuanganFasilitasModel ruanganFasilitas, Model model){
+        model.addAttribute("pageTitle", "Hapus Fasilitas");
+        RuanganFasilitasModel ruanganFasilitasBefore = ruanganFasilitasService.getRuanganFasilitasById(idRuangFas).get();
+        String namaFasilitas = ruanganFasilitasBefore.getFasilitasModel().getNama();
+        String namaRuangan = ruanganFasilitasBefore.getRuanganModel().getNama();
+        ruanganFasilitasService.deleteRuanganFasilitas(ruanganFasilitasBefore);
+        String message = "Fasilitas " + namaFasilitas  + " berhasil dihapus dari ruangan " + namaRuangan + "!";
+        model.addAttribute("message", message);
+        return "delete-fasilitas";
+    }
+
+
 }
