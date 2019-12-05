@@ -60,7 +60,7 @@ public class PeminjamanRuanganModel implements Serializable {
     @Column(name = "is_disetujui",nullable = false)
     private Boolean is_disetujui;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uuid_user_peminjam")
     @OnDelete(action = OnDeleteAction.CASCADE)
     UserModel userModelPeminjam;
