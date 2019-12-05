@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+    <title> Pengadaan Fasilitas Added </title>
+    <object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="Fragments/fragment :: navbar"></nav>
+        <br>
+        <h2 th:text="'Pengadaan fasilitas ' + ${pengadaanFasilitas.nama} + ' berhasil ditambahkan'"></h2>
+    </body>
+</html>

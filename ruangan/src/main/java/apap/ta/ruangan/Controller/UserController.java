@@ -62,9 +62,17 @@ public class UserController{
         return "form-add-user";
     }
 
-    @RequestMapping(value="/add-user-detail/")
+    @RequestMapping(value="/add-user-detail")
     private String createUser(@ModelAttribute  UserModel user,  Model model){
         Long idrole = user.getRole().getId();
+        List<UserModel> users = userService.getAllUsers();
+        for(UserModel a : users){
+            if(user.getUsername().equals(a.getUsername())){
+                String gagal = "USERNAME SUDAH ADA DI DATABASE";
+                model.addAttribute("gagal", gagal);
+                return "form-add-user";
+            }
+        }
         userRestService.createUser(user);
         if(idrole == 3){
             GuruResponse guru = new GuruResponse();
