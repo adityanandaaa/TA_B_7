@@ -22,6 +22,7 @@ public class PageController {
     public String home(Model model, Authentication authentication){
 
         String role = authentication.getAuthorities().toString();
+        model.addAttribute("role",role);
         model.addAttribute("pageTitle","Home");
         if(role.equals("[Admin TU]")){
             return "home-admin";
