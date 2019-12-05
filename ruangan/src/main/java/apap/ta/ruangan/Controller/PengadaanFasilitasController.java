@@ -51,9 +51,18 @@ public class PengadaanFasilitasController {
         }
         else{
         String nama = pengadaanFasilitas.getNama();
+        String deleted = "Pengadaan fasilitas " + nama + " berhasil dihapus";
         pengadaanFasilitasService.deletePengadaanFasilitas(id);
-        model.addAttribute("nama", nama);
-        return "delete-pengadaan-fasilitas";
+        List<PengadaanFasilitasModel> listPengadaanFasilitas;
+        UserModel user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(user.getRole().getId() == Long.valueOf(2)){
+            listPengadaanFasilitas = pengadaanFasilitasService.getAllPengadaanFasilitas();
+        }else{
+            listPengadaanFasilitas = user.getPengadaanFasilitasList();        
+        }
+        model.addAttribute("listPengadaanFasilitas", listPengadaanFasilitas);
+        model.addAttribute("deleted", deleted);
+        return "view-all-pengadaan-fasilitas";
         }
     }
 
@@ -78,8 +87,16 @@ public class PengadaanFasilitasController {
             pengadaanFasilitas.setStatus(1);
             pengadaanFasilitasService.addPengadaanFasilitas(pengadaanFasilitas);
         }
-        model.addAttribute("pengadaanFasilitas", pengadaanFasilitas);
-        return "add-pengadaan-fasilitas";
+        List<PengadaanFasilitasModel> listPengadaanFasilitas;
+        if(user.getRole().getId() == Long.valueOf(2)){
+            listPengadaanFasilitas = pengadaanFasilitasService.getAllPengadaanFasilitas();
+        }else{
+            listPengadaanFasilitas = user.getPengadaanFasilitasList();        
+        }
+        String berhasil = "Pengadaan fasilitas berhasil ditambahkan";
+        model.addAttribute("berhasil", berhasil);
+        model.addAttribute("listPengadaanFasilitas", listPengadaanFasilitas);
+        return "view-all-pengadaan-fasilitas";
     }
 
 }

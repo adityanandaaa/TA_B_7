@@ -8,6 +8,9 @@
 </head>
 <body>
 <nav th:replace="Fragments/fragment :: navbar"></nav>
+<br>
+<h3 th:text = "${deleted}"></h3>
+<h3 th:text = "${berhasil}"></h3>
 <div class="container-fluid">
     <br>
     <div class="row">
@@ -52,6 +55,10 @@
                     </table>
                 </div>
             </div>
+            <br>
+            <button class="btn tbn-sm btn-primary ">
+                <a th:href = "@{/pengadaan-fasilitas/add-form}" style ="color:white">tambah</a>
+            </button>
         </div>
     </div>
 </div>
