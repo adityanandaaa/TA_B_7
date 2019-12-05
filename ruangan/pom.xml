@@ -68,7 +68,7 @@
 			<groupId>com.vaadin.external.google</groupId>
 			<artifactId>android-json</artifactId>
 			<version>0.0.20131108.vaadin1</version>
-			<scopes>compile</scopes>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
