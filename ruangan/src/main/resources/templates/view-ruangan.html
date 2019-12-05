@@ -50,8 +50,10 @@
                                 <div th:each="fasilitas, iterationStatus:${ruanganFasilitas}">
 
                                     <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah}"></p>
+                                    <div th:if="${isAdminTU}">
+                                        <a class="btn btn-dark text-white" th:href="@{/ruangan/ubah-jumlah-fasilitas?idRuanganFasilitas={id}(id=${fasilitas.id})}">Ubah Jumlah Fasilitas</a>
 
-                                    <a class="btn btn-dark text-white" th:href="@{/ruangan/ubah-jumlah-fasilitas?idRuanganFasilitas={id}(id=${fasilitas.id})}">Ubah Jumlah Fasilitas</a>
+                                    </div>
                                 </div>
                         </div>
                     </div>

@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/fasilitas/add").hasAnyAuthority("Admin TU")
                 .antMatchers("/fasilitas/pengadaanBuku").hasAnyAuthority("Admin TU")
                 .antMatchers("/ruangan/ubah-jumlah-fasilitas**").hasAnyAuthority("Admin TU")
+                .antMatchers("/peminjaman-ruangan/ubah-persetujuan**").hasAnyAuthority("Admin TU")
 //                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Admin TU")
 //                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Siswa")
 //                .antMatchers("/peminjaman-ruangan/peminjaman-ruangan-all").hasAnyAuthority("Guru")
