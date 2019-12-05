@@ -8,4 +8,5 @@ public interface PengadaanFasilitasService {
     List<PengadaanFasilitasModel> getAllPengadaanFasilitas();
     PengadaanFasilitasModel getPengadaanFasilitasById(Long id);
     void deletePengadaanFasilitas(Long id);
+    void addPengadaanFasilitas(PengadaanFasilitasModel pengadaanFasilitas);
 }

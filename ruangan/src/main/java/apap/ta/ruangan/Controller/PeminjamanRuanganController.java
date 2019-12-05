@@ -302,21 +302,23 @@ public class PeminjamanRuanganController {
     }
 
     @RequestMapping(value = "/peminjaman-ruangan-all", method = RequestMethod.GET)
-    public String viewAllruangan(Model model) {
+    public String viewAllruangan(Model model,Authentication authentication) {
+        String role = authentication.getAuthorities().toString();
+        model.addAttribute("role",role);
 
 
-        List<PeminjamanRuanganModel> peminjamanRuanganList = peminjamanRuanganService.getPeminjamanRuanganList();
-        List<RuanganModel> ruanganModelList = ruanganService.getRuanganList();
+            List<PeminjamanRuanganModel> peminjamanRuanganList = peminjamanRuanganService.getPeminjamanRuanganList();
+            List<RuanganModel> ruanganModelList = ruanganService.getRuanganList();
 
-        model.addAttribute("peminjamanRuanganList", peminjamanRuanganList);
-        model.addAttribute("ruanganModelList",ruanganModelList);
-        model.addAttribute("pageTitle", "All Peminjaman Ruangan");
-        model.addAttribute("pageFooter", "View Store");
-        UserModel loggedUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.addAttribute("isAdminTU", loggedUser.getRole().getId() == 2);
+            model.addAttribute("peminjamanRuanganList", peminjamanRuanganList);
+            model.addAttribute("ruanganModelList", ruanganModelList);
+            model.addAttribute("pageTitle", "All Peminjaman Ruangan");
+            model.addAttribute("pageFooter", "View Store");
+            UserModel loggedUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            model.addAttribute("isAdminTU", loggedUser.getRole().getId() == 2);
 
+            return "view-all-peminjaman-ruangan";
 
-        return "view-all-peminjaman-ruangan";
     }
     @RequestMapping(value = "/ubah-persetujuan", method = RequestMethod.GET)
     public String ubahPersetujuanForm(@RequestParam(value = "idPeminjamanRuangan", required = true) Long idPeminjamanRuangan, Model model){

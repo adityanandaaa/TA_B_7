@@ -23,6 +23,7 @@ public class PeminjamanRuanganRestServiceImpl implements PeminjamanRuanganRestSe
     @Override
     public PeminjamanRuanganModel createPeminjamanRuangan(PeminjamanRuanganModel peminjamanRuanganModel){
         peminjamanRuanganModel.setRuanganModel(peminjamanRuanganModel.getRuanganModel());
+        peminjamanRuanganModel.setUserModelPeminjam(peminjamanRuanganModel.getUserModelPeminjam());
         return peminjamanRuanganDb.save(peminjamanRuanganModel);
     }
 
