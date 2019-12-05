@@ -34,4 +34,10 @@ public class PengadaanFasilitasServiceImpl implements PengadaanFasilitasService 
         pengadaanFasilitasDb.deleteById(id);
     }
 
+    @Override
+    public void addPengadaanFasilitas(PengadaanFasilitasModel pengadaanFasilitas) {
+        pengadaanFasilitasDb.save(pengadaanFasilitas);
+
+    }
+
 }

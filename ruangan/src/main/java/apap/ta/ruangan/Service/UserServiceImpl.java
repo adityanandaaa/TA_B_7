@@ -9,18 +9,19 @@ import apap.ta.ruangan.Model.RoleModel;
 import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Repository.UserDb;
 
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDb userDb;
 
     @Override
-    public UserModel createUser(UserModel user){
+    public UserModel createUser(UserModel user) {
         String pass = encrypt(user.getPassword());
         RoleModel role = user.getRole();
         user.setPassword(pass);
@@ -29,29 +30,28 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String encrypt(String password){
+    public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }
 
-	@Override
-	public UserModel getUserByUsername(String username) {
-		return userDb.findByUsername(username);
-	}
+    @Override
+    public UserModel getUserByUsername(String username) {
+        return userDb.findByUsername(username);
+    }
 
     @Override
     public boolean checkPassword(String password) {
-        if(password.matches("^.*[A-Za-z].*")){
-            if(password.matches(".*[0-9].*")){
-             if(password.length() >= 8){
-               return true;
-             }
-           }
+        if (password.matches("^.*[A-Za-z].*")) {
+            if (password.matches(".*[0-9].*")) {
+                if (password.length() >= 8) {
+                    return true;
+                }
+            }
         }
-       return false;
-    } 
-
+        return false;
+    }
 
     @Override
     public UserModel getUserByUSername(String name) {
@@ -64,8 +64,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserModel findByuuid(String id){
+    public UserModel findByuuid(String id) {
         return userDb.findById(id);
+    }
+
+    @Override
+    public List<UserModel> getAllUsers() {
+        return userDb.findAll();
     }
 }
 
