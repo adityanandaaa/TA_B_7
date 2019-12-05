@@ -117,7 +117,7 @@ public class PengadaanFasilitasController {
                         model.addAttribute("berhasil", berhasil);
                         model.addAttribute("listPengadaanFasilitas", listPengadaanFasilitas);
                         return "view-all-pengadaan-fasilitas";
-                        }
+                         }
                     u.setJumlah(u.getJumlah() + pengadaanFasilitas.getJumlah());
                     if(user.getRole().getId() == Long.valueOf(2)){
                         listPengadaanFasilitas = pengadaanFasilitasService.getAllPengadaanFasilitas();
