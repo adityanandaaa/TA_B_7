@@ -48,11 +48,11 @@
 <!--                            </div>-->
 
                                 <div th:each="fasilitas, iterationStatus:${ruanganFasilitas}">
-
-                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.jumlah_fasilitas}"></p>
-
-                                    <a class="btn btn-dark text-white" th:href="@{/ruangan/ubah-jumlah-fasilitas?idRuanganFasilitas={id}(id=${fasilitas.id})}">Ubah Jumlah Fasilitas</a>
-                                    <a class="btn btn-danger text-white" th:href="@{/ruangan/hapus-fasilitas?idRuanganFasilitas={id}(id=${fasilitas.id})}">Hapus Fasilitas</a>
+                                    <p th:text="${fasilitas.fasilitasModel.nama} + ' : ' +${fasilitas.fasilitasModel.jumlah}"></p>
+                                    <div th:if="${isAdminTU}">
+                                        <a class="btn btn-dark text-white" th:href="@{/ruangan/ubah-jumlah-fasilitas?idRuanganFasilitas={id}(id=${fasilitas.id})}">Ubah Jumlah Fasilitas</a>
+                                        <a class="btn btn-danger text-white" th:href="@{/ruangan/hapus-fasilitas?idRuanganFasilitas={id}(id=${fasilitas.id})}">Hapus Fasilitas</a>
+                                    </div>
                                 </div>
                         </div>
                     </div>

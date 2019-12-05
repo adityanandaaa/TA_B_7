@@ -49,7 +49,10 @@
                                     <button value="submit" class="btn btn-primary">Lihat</button>
                                 </form>
                             </td>
-                            <!--                            <td>-->
+                            <div th:if="${isAdminTU}">
+                                <td><a class="btn btn-dark text-white" th:href="@{/peminjaman-ruangan/ubah-persetujuan?idPeminjamanRuangan={id}(id=${peminjamanruangan.id})}">Ubah Persetujuan</a></td>
+                            </div>
+                                <!--                            <td>-->
                             <!--                                <form th:action="@{/diagnosis-penyakit/hapus}" th:method="POST">-->
                             <!--                                    <input type="hidden" name="idDiagnosis" th:value="${diagnosis.id}" />-->
                             <!--                                    <button value="submit"  class="btn btn-danger">Hapus</button>-->
