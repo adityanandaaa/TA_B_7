@@ -61,7 +61,7 @@ public class PengadaanFasilitasController {
             listPengadaanFasilitas = user.getPengadaanFasilitasList();        
         }
         model.addAttribute("listPengadaanFasilitas", listPengadaanFasilitas);
-        model.addAttribute("status", deleted);
+        model.addAttribute("deleted", deleted);
         return "view-all-pengadaan-fasilitas";
         }
     }
@@ -94,7 +94,7 @@ public class PengadaanFasilitasController {
             listPengadaanFasilitas = user.getPengadaanFasilitasList();        
         }
         String berhasil = "Pengadaan fasilitas berhasil ditambahkan";
-        model.addAttribute("status", berhasil);
+        model.addAttribute("berhasil", berhasil);
         model.addAttribute("listPengadaanFasilitas", listPengadaanFasilitas);
         return "view-all-pengadaan-fasilitas";
     }
