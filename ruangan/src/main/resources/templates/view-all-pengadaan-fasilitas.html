@@ -9,8 +9,16 @@
 <body>
 <nav th:replace="Fragments/fragment :: navbar"></nav>
 <br>
-<h3 th:text = "${deleted}"></h3>
-<h3 th:text = "${berhasil}"></h3>
+<div th:if = "${update} == 1">
+    <div class="alert alert-success">
+        <strong th:text = "${berhasil}"></strong> 
+      </div>
+    </div>
+    <div th:if = "${update} == 2">
+        <div class="alert alert-danger">
+            <strong th:text = "${berhasil}"></strong> 
+          </div>
+        </div>
 <div class="container-fluid">
     <br>
     <div class="row">

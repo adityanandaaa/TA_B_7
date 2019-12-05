@@ -57,6 +57,8 @@ public class UserController{
         List<RoleModel> roles = new ArrayList<RoleModel>();
         roles.add(roleService.findById(Long.valueOf(3)));
         roles.add(roleService.findById(Long.valueOf(4)));
+        int status = 0;
+        model.addAttribute("status", status);
         model.addAttribute("roles", roles);
         model.addAttribute("user", user.getId());
         return "form-add-user";
@@ -68,7 +70,9 @@ public class UserController{
         List<UserModel> users = userService.getAllUsers();
         for(UserModel a : users){
             if(user.getUsername().equals(a.getUsername())){
+                int status = 1;
                 String gagal = "USERNAME SUDAH ADA DI DATABASE";
+                model.addAttribute("status", status);
                 model.addAttribute("gagal", gagal);
                 return "form-add-user";
             }
@@ -92,13 +96,15 @@ public class UserController{
     }
 
     @PostMapping(value = "/submit-user-siswa")
-    private SiswaResponse postStatusSiswa(@ModelAttribute SiswaResponse siswa) throws JSONException{
-        return userRestService.postStatusSiswa(siswa).block();
+    private String postStatusSiswa(@ModelAttribute SiswaResponse siswa) throws JSONException{
+        userRestService.postStatusSiswa(siswa).block();
+        return "add-user";
     }
 
     @PostMapping(value = "/submit-user-guru")
-    private GuruResponse postStatusGuru(@ModelAttribute GuruResponse guru,UserModel user) throws JSONException{
-        return userRestService.postStatusGuru(guru).block();
+    private String postStatusGuru(@ModelAttribute GuruResponse guru,UserModel user) throws JSONException{
+        userRestService.postStatusGuru(guru).block();
+        return "add-user";
     }
 
     @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
