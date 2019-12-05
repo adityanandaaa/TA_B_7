@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Fasilitas</title>
+    <object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar "></nav>
+<div class="container-fluid">
+    <br> <br>
+    <div class="container jumbotron">
+        <h2 class="display-8" th:text="${message}"></h2>
+        <a href="/">Kembali ke Beranda</a>
+    </div>
+</div>
+</body>
+</html>

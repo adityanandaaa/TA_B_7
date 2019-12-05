@@ -143,4 +143,11 @@ public class RuanganFasilitasServiceImpl implements RuanganFasilitasService {
 
     }
 
+    @Override
+    public void deleteRuanganFasilitas(RuanganFasilitasModel ruanganFasilitas) {
+        //String namaGudang = gudang.getNama();
+        ruanganFasilitasDb.delete(ruanganFasilitas);
+        ///return namaGudang;
+    }
+
 }

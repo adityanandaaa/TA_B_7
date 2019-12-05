@@ -16,5 +16,6 @@ public interface RuanganFasilitasService {
     Boolean isFasilitasJumlahEnough(FasilitasModel fasilitasModel, long demand, long current);
     Boolean isRuanganKapasitasEnough(RuanganModel ruang, long demand, long current);
     RuanganFasilitasModel ubahJumlahFasilitas(RuanganFasilitasModel ruangFasilitas, long newJumlah);
+    void deleteRuanganFasilitas(RuanganFasilitasModel ruanganFasilitasModel);
 
 }
