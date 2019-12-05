@@ -117,4 +117,18 @@ public class RuanganController {
         model.addAttribute("notif", true);
         return "form-ubah-jumlah-fasilitas";
     }
+
+    @RequestMapping(value = "/hapus-fasilitas")
+    public String hapusFasilitas(@RequestParam(value = "idRuanganFasilitas", required = true) Long idRuangFas, @ModelAttribute RuanganFasilitasModel ruanganFasilitas, Model model){
+        model.addAttribute("pageTitle", "Hapus Fasilitas");
+        RuanganFasilitasModel ruanganFasilitasBefore = ruanganFasilitasService.getRuanganFasilitasById(idRuangFas).get();
+        String namaFasilitas = ruanganFasilitasBefore.getFasilitasModel().getNama();
+        String namaRuangan = ruanganFasilitasBefore.getRuanganModel().getNama();
+        ruanganFasilitasService.deleteRuanganFasilitas(ruanganFasilitasBefore);
+        String message = "Fasilitas " + namaFasilitas  + " berhasil dihapus dari ruangan " + namaRuangan + "!";
+        model.addAttribute("message", message);
+        return "delete-fasilitas";
+    }
+
+
 }
