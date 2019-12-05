@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<br>
+<div class="container-fluid">
+    <h2 class="alert alert-success">Sukses!</h2>
+    <h1 th:text= " 'Ruangan berhasil ditambahkan'"></h1>
+    <td> <a th:href="@{/peminjaman-ruangan/peminjaman-ruangan-all}"> Lihat Semua Peminjaman </a> </td>
+    <form th:action="@{/peminjaman-ruangan/view-peminjaman-ruangan}" method="GET">
+        <input type="hidden" th:name="idPeminjamanRuangan" th:value="${peminjamanruangan.id}" />
+        <button value="submit" class="btn btn-primary btn-block">Lihat</button>
+    </form>
+</div>
+</body>
+</html>
