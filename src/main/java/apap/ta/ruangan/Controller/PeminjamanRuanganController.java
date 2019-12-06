@@ -5,9 +5,7 @@ import apap.ta.ruangan.Model.PeminjamanRuanganModel;
 import apap.ta.ruangan.Model.RuanganModel;
 import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Repository.UserDb;
-import apap.ta.ruangan.Rest.PengajuanSurat;
-import apap.ta.ruangan.Rest.PengajuanSuratModel;
-import apap.ta.ruangan.Rest.PengajuanSuratResponse;
+import apap.ta.ruangan.Rest.*;
 import apap.ta.ruangan.Service.PeminjamanRuanganService;
 import apap.ta.ruangan.Service.RuanganService;
 import apap.ta.ruangan.Service.UserService;
@@ -105,7 +103,41 @@ public class PeminjamanRuanganController {
         PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
         pengajuanSurat = response.getResult();
 
-        UserModel userpenyetuju = userDb.findById(pengajuanSurat.getIdUser());
+        UserModel userpenyetuju = null;
+        UserModel UserSurat;
+
+        for(int i=1;i<=3;i++){
+            if(i==1) {
+                String pathguru = "http://sivitas.herokuapp.com/api/teachers/" + pengajuanSurat.getIdUser();
+                UserModelResponse responseemp = restTemplate.getForObject(pathguru, UserModelResponse.class);
+                UserSurat = responseemp.getResult();
+
+                userpenyetuju = UserSurat;
+            }
+            if(i==2){
+                String pathguru = "http://sivitas.herokuapp.com/api/students/" + pengajuanSurat.getIdUser();
+                UserModelResponse responseemp = restTemplate.getForObject(pathguru, UserModelResponse.class);
+                UserSurat = responseemp.getResult();
+
+                userpenyetuju = UserSurat;
+
+            }
+            else{
+
+                String pathemp = "http://sivitas.herokuapp.com/api/employees/" + pengajuanSurat.getIdUser();
+                UserModelResponse responseemp = restTemplate.getForObject(pathemp, UserModelResponse.class);
+                UserSurat = responseemp.getResult();
+
+                userpenyetuju = UserSurat;
+            }
+        }
+
+        System.out.println(userpenyetuju);
+        System.out.println(userpenyetuju.getId());
+
+
+
+
         String messages;
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         Date mulai = sdf.parse(peminjamanruangan.getWaktu_mulai());
