@@ -278,8 +278,7 @@ public class PeminjamanRuanganController {
         }
 //        String message = "kentut sapi";
 //        model.addAttribute("message", message);
-//        return "view-all-peminjaman-ruangan";
-        return currentPrincipalName;
+        return "view-all-peminjaman-ruangan";
     }
 
 
