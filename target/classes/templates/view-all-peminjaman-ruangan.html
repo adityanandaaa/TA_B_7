@@ -9,6 +9,9 @@
 <body>
 <nav th:replace="Fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
+    <div class="alert alert-success" role="alert" style="text-align: center">
+        <h6 th:text="${message}"></h6>
+    </div>
     <br>
         <button class ="btn btn-primary btn-sm">
             <a th:href ="@{/peminjaman-ruangan/tambah}" style="color: white"> Pinjam Ruangan</a>
