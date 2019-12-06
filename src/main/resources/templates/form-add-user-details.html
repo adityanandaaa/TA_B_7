@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br>
+    <h3>Tambah User</h3>
+    <br>
+    <div class = "row">
+        <div class="col-md-6">
+            <div class="card">
+                <div th:if = "${role != 4}">
+                <div class="card-header">Form Detail Guru</div>
+                    <div class="card-body">
+                            <form th:action="@{/submit-user-guru}" th:object="${guru}" method="POST">
+                                <input type = "hidden" th:field="${guru.idUser}" th:value = "${user.id}"class="form-control" />
+                                <label>Nama</label>
+                                <input type ="text" th:field="${guru.nama}" class="form-control"/>
+        
+                                <label>Tempat Lahir</label>
+                                <input type = "text" th:field="${guru.tempat_lahir}" class="form-control"/>
+        
+                                <label>Tanggal Lahir</label>
+                                <input type = "date" th:field="${guru.tanggal_lahir}" class="form-control"/>
+                                
+                                <label>Alamat</label>
+                                <input type = "text" th:field="${guru.alamat}" class="form-control"/>
+        
+                                <label>Telepon</label>
+                                <input type = "text" th:field="${guru.telepon}" class="form-control"/>
+        
+                                <br>
+                                <button type ="submit" class = "btn btn-primary">Simpan</button>
+                            </form>
+                        </div>
+                </div>
+            <div th:unless = "${role != 4}">
+                <div class="card-header">Form Detail Siswa</div>
+                <div class="card-body">
+                        <form th:action="@{/submit-user-siswa}" th:object="${siswa}" method="POST">
+                            <input type = "hidden" th:field="${siswa.idUser}" th:value = "${user.id}"class="form-control" />
+                            <label>Nama</label>
+                            <input type ="text" th:field="${siswa.nama}" class="form-control"/>
+    
+                            <label>Tempat Lahir</label>
+                            <input type = "text" th:field="${siswa.tempat_lahir}" class="form-control"/>
+    
+                            <label>Tanggal Lahir</label>
+                            <input type = "date" th:field="${siswa.tanggal_lahir}" class="form-control"/>
+                            
+                            <label>Alamat</label>
+                            <input type = "text" th:field="${siswa.alamat}" class="form-control"/>
+    
+                            <label>Telepon</label>
+                            <input type = "text" th:field="${siswa.telepon}" class="form-control"/>
+    
+                            <br>
+                            <button type ="submit" class = "btn btn-primary">Simpan</button>
+                        </form>
+                    </div>
+            </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br>
+    <h3>Tambah Peminjaman Ruangan</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header ">Peminjaman Ruangan</div>
+                <div class="card-body">
+                    <form th:action="@{/peminjaman-ruangan/tambah}" method="POST" >
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Ruangan</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control container1"  th:field="*{peminjamanruangan.ruanganModel}" required="true">
+                                        <option value="">-- Silahkan Pilih Ruangan --</option>
+                                        <option th:each="ruangan : ${listOfRuangan}" th:text="${ruangan.nama}" th:value="${ruangan.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Waktu Mulai</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="time" name="waktu_mulai" min="08:59" max="18:01" th:field="*{peminjamanruangan.waktu_mulai}" required="true"/>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Waktu Selesai</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="time" name="waktu_selesai" min="09:29" max="18:31" th:field="*{peminjamanruangan.waktu_selesai}" required="true"/>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Tanggal Mulai</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="date" name="tanggal_mulai" th:field="*{peminjamanruangan.tanggal_mulai}" required="true"/>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Tanggal Selesai</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="date" name="tanggal_selesai" th:field="*{peminjamanruangan.tanggal_selesai}" required="true"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Tujuan</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" name="tujuan" th:field="*{peminjamanruangan.tujuan}"required="true"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Keterangan</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" name="keterangan" th:field="*{peminjamanruangan.keterangan}"required="true"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Jumlah Peserta</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="number" name="jumlah_peserta" th:field="*{peminjamanruangan.jumlah_peserta}"required="true"/>
+                                    </div>
+                                </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Nomor Surat</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="number" name="nomorsurat" th:field="*{pengajuanSuratModel.hasil}" />
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

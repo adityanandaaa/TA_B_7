@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br>
+    <h3>Tambah User</h3>
+    <br>
+    <div th:if = "${status} == 1">
+    <div class="alert alert-danger">
+        <strong th:text = "${gagal}"></strong> 
+      </div>
+    </div>
+    <div class = "row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Tambah User baru</div>
+                <div class="card-body">
+                    <form th:action="@{/add-user-detail/}"  method="POST">
+                        <label>Username</label>
+                        <input type ="text" name="username" class="form-control"/>
+
+                        <label>Password</label>
+                        <input type = "password" name="password" class="form-control"/>
+
+                        <label>Role</label>
+                        <select name="role" class="form-control">
+                            <option selected value = ""> -- Pilih Role -- </option>
+                            <option th:each = "roleAvailable : ${roles}" th:value = "${roleAvailable.id}" th:text = "${roleAvailable.nama}"></option>
+                        </select>
+                        <br>
+                        <button type ="submit" class = "btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

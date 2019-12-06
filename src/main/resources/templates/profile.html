@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head
+        th:include="Fragments/fragment :: headerfragment">
+</head>
+<object th:include="Fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="Fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="Fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class=col-md-12>
+            <div class="card">
+                <div class="card-header text-white bg-secondary" th:text="'Profil Pengguna'"></div>
+                <div class="card-body">
+                    <!--                <td> <a th:href="@{/}"> Back Home </a> </td>-->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Username</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${loggedUser.username}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${profile != null}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Nama</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${profile.get('result').get('nama')}"></p>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>No. Induk</p>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if = "${role} == ${teachers}"> <p th:text="${profile.get('result').get('nig')}"></p></div>
+                                <div th:unless = "${role} == ${teachers}">
+                                    <div th:if = "${role} == ${employees}"><p th:text="${profile.get('result').get('nip')}"></p></div>
+                                    <div th:unless = "${role} == ${employees}"><p th:text="${profile.get('result').get('nis')}"></p></div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Tempat Lahir</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${profile.get('result').get('tempatLahir')}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Tanggal Lahir</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${profile.get('result').get('tanggalLahir')}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Alamat</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${profile.get('result').get('alamat')}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>Nomor Telepon</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p th:text="${profile.get('result').get('telepon')}"></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head>
+    <head th:fragment="headerfragment">
+        <title th:text="${pageTitle}">Template Title</title>
+    </head>
+
+    <head th:fragment = "css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    </head>
+
+
+    <head th:fragment ="js">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt TE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s F86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/siruang2.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+            SIruang
+        </a>
+    </nav>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li>
+                <a class="nav-item nav-link" th:href="@{/}">Beranda</a>
+            </li>
+<!--            <li>-->
+<!--                <a class="nav-item nav-link active" > Login <span class ="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            th:href="@{/login}-->
+        </ul>
+        <ul class="navbar-nav">
+            <li>
+                <a class="nav-item nav-link" th:href="@{/user/profile}">Profil</a>
+            </li>
+            <li>
+                <a class="nav-item nav-link" th:href="@{/peminjaman-ruangan/peminjaman-ruangan-all}">Peminjaman Ruangan</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav my-2 ml-auto">
+            <li th:if="${#httpServletRequest.userPrincipal} != null">
+                <a class="navbar-brand" th:text="${#httpServletRequest.remoteUser}" style="color: white">Login as</a>
+                <a class="btn btn-light" th:href="@{/logout}">Logout</a>
+            </li>
+            <li th:unless="${#httpServletRequest.userPrincipal} != null">
+                <a class="btn btn-light" th:href="@{/login}">Login</a>
+            </li>
+<!--            th:href="@{/logout}-->
+<!--            <li>-->
+<!--                <a class="nav-item nav-link active" th:href="@{/bonus}"> Bonus <span class ="sr-only">(current)</span></a>-->
+<!--            </li>-->
+        </ul>
+    </div>
+</nav>
+<br>
+<!-- Footer -->
+<!-- Footer -->
+<!-- Footer -->
+<footer class="page-footer font-small unique-color-dark pt-4 bg-dark" style="align-items: center">
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+        <!-- Call to action -->
+        <ul class="list-unstyled list-inline text-center py-2" style="align-items: center">
+            <li class="list-inline-item">
+                <h5 class="mb-1" style="color: white">SIRuang</h5>
+            </li>
+        </ul>
+        <!-- Call to action -->
+
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3 bg-dark white-text" style="color: white">© 2019 Copyright
+        <h6 style="color: white" class="white-text"> Kelompok Serah </h6>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+</body>
+</html>
