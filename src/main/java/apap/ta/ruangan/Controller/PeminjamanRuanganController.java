@@ -15,22 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import java.security.Principal;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +80,9 @@ public class PeminjamanRuanganController {
     @RequestMapping(value = "/tambah", method = RequestMethod.POST)
     public String addPeminjamanRuanganPage(@ModelAttribute PeminjamanRuanganModel peminjamanruangan,
                                            Model model, PengajuanSuratModel pengajuanSuratModel) throws ParseException {
+//        peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan,pengajuanSuratModel);
+//        return "view-all-peminjaman-ruangan";
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<UserModel> listuser = userDb.findAll();
         UserModel login = null;
@@ -103,7 +101,7 @@ public class PeminjamanRuanganController {
             }
         }
         PengajuanSurat pengajuanSurat ;
-        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
+        String path = "https://si-tu-b8.herokuapp.com/api/v1/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
         PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
         pengajuanSurat = response.getResult();
 
@@ -281,8 +279,9 @@ public class PeminjamanRuanganController {
                 return "gabisa-add-peminjaman-ruangan";
             }
         }
-
-        return null;
+//        String message = "kentut sapi";
+//        model.addAttribute("message", message);
+        return "view-all-peminjaman-ruangan";
     }
 
 
