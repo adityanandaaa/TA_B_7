@@ -6,9 +6,7 @@ import apap.ta.ruangan.Model.RuanganModel;
 import apap.ta.ruangan.Model.UserModel;
 import apap.ta.ruangan.Repository.UserDb;
 import apap.ta.ruangan.Rest.*;
-import apap.ta.ruangan.Service.PeminjamanRuanganService;
-import apap.ta.ruangan.Service.RuanganService;
-import apap.ta.ruangan.Service.UserService;
+import apap.ta.ruangan.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
@@ -24,10 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping("/peminjaman-ruangan")
@@ -38,6 +33,7 @@ public class PeminjamanRuanganController {
 
     @Bean
     public RestTemplate rest() {
+
         return new RestTemplate();
     }
 
@@ -52,6 +48,11 @@ public class PeminjamanRuanganController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRestService userRestService;
+    @Autowired
+    private RoleService roleService;
 
 
     @RequestMapping(value = "/tambah", method = RequestMethod.GET)
@@ -98,44 +99,70 @@ public class PeminjamanRuanganController {
                 calonruangan = ruanganModel;
             }
         }
+
         PengajuanSurat pengajuanSurat ;
         String path = "https://si-tu-b8.herokuapp.com/api/v1/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
         PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
         pengajuanSurat = response.getResult();
+//        Map<String, String> profile = null;
+        String role = "default";
 
+//
+//        System.out.println(pengajuanSurat.getStatus());
+//        System.out.println(pengajuanSurat.getIdUser());
         UserModel userpenyetuju = null;
         UserModel UserSurat;
 
-        for(int i=1;i<=3;i++){
-            if(i==1) {
-                String pathguru = "http://sivitas.herokuapp.com/api/teachers/" + pengajuanSurat.getIdUser();
-                UserModelResponse responseemp = restTemplate.getForObject(pathguru, UserModelResponse.class);
-                UserSurat = responseemp.getResult();
+        role = "employees";
+        String pathemp = "http://sivitas.herokuapp.com/api/employees/" + pengajuanSurat.getIdUser();
+        UserModelResponse responseemp = restTemplate.getForObject(pathemp, UserModelResponse.class);
+        UserSurat = responseemp.getResult();
+        System.out.println(UserSurat);
 
-                userpenyetuju = UserSurat;
-            }
-            if(i==2){
-                String pathguru = "http://sivitas.herokuapp.com/api/students/" + pengajuanSurat.getIdUser();
-                UserModelResponse responseemp = restTemplate.getForObject(pathguru, UserModelResponse.class);
-                UserSurat = responseemp.getResult();
-
-                userpenyetuju = UserSurat;
-
-            }
-            else{
-
-                String pathemp = "http://sivitas.herokuapp.com/api/employees/" + pengajuanSurat.getIdUser();
-                UserModelResponse responseemp = restTemplate.getForObject(pathemp, UserModelResponse.class);
-                UserSurat = responseemp.getResult();
-
-                userpenyetuju = UserSurat;
-            }
-        }
-
-        System.out.println(userpenyetuju);
-        System.out.println(userpenyetuju.getId());
+        userpenyetuju = userService.findByuuid(response.getResult().getIdUser());
 
 
+//        if(pengajuanSurat.getIdUser()!= null) {
+//            for (int i = 1; i <= 3; i++) {
+//                if (i == 3) {
+//                    role = "teachers";
+//
+////                    profile = userRestService.getUserProfile(role, pengajuanSurat.getIdUser());
+////                    System.out.println(profile);
+//
+//                    String pathguru = "http://sivitas.herokuapp.com/api/teachers/" + pengajuanSurat.getIdUser();
+//                    UserModelResponse responsete = restTemplate.getForObject(pathguru, UserModelResponse.class);
+//                    UserSurat = responsete.getResult();
+//
+//                    userpenyetuju = UserSurat;
+//                }
+//                if (i == 2) {
+//                    role = "students";
+//
+////                    profile = userRestService.getUserProfile(role, pengajuanSurat.getIdUser());
+////                    System.out.println(profile);
+//
+//                    String pathguru = "http://sivitas.herokuapp.com/api/students/" + pengajuanSurat.getIdUser();
+//                    UserModelResponse responstu = restTemplate.getForObject(pathguru, UserModelResponse.class);
+//                    UserSurat = responstu.getResult();
+//
+//                    userpenyetuju = UserSurat;
+//
+//                } else {
+//                    role = "employees";
+//
+////                    profile = userRestService.getUserProfile(role, pengajuanSurat.getIdUser());
+////                    System.out.println(profile);
+//
+//                    String pathemp = "http://sivitas.herokuapp.com/api/employees/" + pengajuanSurat.getIdUser();
+//                    UserModelResponse responseemp = restTemplate.getForObject(pathemp, UserModelResponse.class);
+//                    UserSurat = responseemp.getResult();
+//                    System.out.println(UserSurat);
+//
+//                    userpenyetuju = UserSurat;
+//                }
+//            }
+//        }
 
 
         String messages;
