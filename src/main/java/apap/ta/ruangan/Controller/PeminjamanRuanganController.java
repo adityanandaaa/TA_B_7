@@ -101,7 +101,7 @@ public class PeminjamanRuanganController {
             }
         }
         PengajuanSurat pengajuanSurat ;
-        String path = "https://d3358147-6e01-490c-a290-3d8c320c4f93.mock.pstmn.io/rest/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
+        String path = "https://si-tu-b8.herokuapp.com/api/v1/situ/pengajuanSurat/" + pengajuanSuratModel.getHasil() ;
         PengajuanSuratResponse response = restTemplate.getForObject(path, PengajuanSuratResponse.class);
         pengajuanSurat = response.getResult();
 
@@ -256,7 +256,7 @@ public class PeminjamanRuanganController {
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                return "gabisa-add-peminjaman-ruangan";
+                                return "add-peminjaman-ruangan";
                             }
                         }else{
                             messages = "Sudah ada peminjaman pada waktu dan tanggal tersebut";

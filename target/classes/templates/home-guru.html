@@ -40,7 +40,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Ajukan Peminjaman Ruangan</h5>
                             <hr>
-                            <button class="btn btn-outline-dark btn-block "> Ajukan </button>
+                            <button class="btn btn-outline-dark btn-block "> <a th:href="@{peminjaman-ruangan/tambah}">Ajukan</a> </button>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Ajukan Pengadaan Fasilitas</h5>
                             <hr>
-                            <button class="btn btn-outline-dark btn-block "> Ajukan </button>
+                            <button class="btn btn-outline-dark btn-block "> <a th:href="@{pengadaan-fasilitas/add-form}">Ajukan</a> </button>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Daftar Pengajuan Peminjaman Ruangan</h5>
                             <hr>
-                            <button class="btn btn-outline-dark btn-block "> Lihat </button>
+                            <button class="btn btn-outline-dark btn-block "><a th:href="@{peminjaman-ruangan/peminjaman-ruangan-all}">Lihat</a> </button>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Daftar Pengajuan Pengadaan Fasilitas</h5>
                             <hr>
-                            <button class="btn btn-outline-dark btn-block "> Lihat </button>
+                            <button class="btn btn-outline-dark btn-block "><a th:href="@{pengadaan-fasilitas/view}">Lihat</a> </button>
                         </div>
                     </div>
                 </div>
