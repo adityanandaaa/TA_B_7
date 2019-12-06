@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface PeminjamanRuanganService {
 
-    void addPeminjamRuangan(PeminjamanRuanganModel peminjamanRuanganModel, PengajuanSuratModel pengajuanSuratModel) throws ParseException;
+//    void addPeminjamRuangan(PeminjamanRuanganModel peminjamanRuanganModel, PengajuanSuratModel pengajuanSuratModel) throws ParseException;
+    void addPeminjamRuangan(PeminjamanRuanganModel peminjamanRuanganModel);
     PeminjamanRuanganModel getPeminjamanRuanganById(Long idPeminjamanRuangan);
     List<PeminjamanRuanganModel> getPeminjamanRuanganList();
     PeminjamanRuanganModel ubahPersetujuan(Long idPeminjamanRuangan, boolean newIsDisetujui, UserModel userPenyetuju);
