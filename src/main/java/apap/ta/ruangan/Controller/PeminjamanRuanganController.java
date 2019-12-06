@@ -278,6 +278,7 @@ public class PeminjamanRuanganController {
         }
 //        String message = "kentut sapi";
 //        model.addAttribute("message", message);
+        peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
         return "view-all-peminjaman-ruangan";
     }
 
