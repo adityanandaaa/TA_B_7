@@ -157,7 +157,7 @@ public class PeminjamanRuanganController {
 
                                     peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                     model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                    return "add-peminjaman-ruangan";
+                                    return "gabisa-add-peminjaman-ruangan";
 
                                 } else {
                                     peminjamanruangan.setIs_disetujui(false);
@@ -166,7 +166,7 @@ public class PeminjamanRuanganController {
 
                                     peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                     model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                    return "add-peminjaman-ruangan";
+                                    return "gabisa-add-peminjaman-ruangan";
                                 }
                             } else {
                                 messages = "Kapasitas tidak sesuai";
@@ -201,7 +201,7 @@ public class PeminjamanRuanganController {
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                return "add-peminjaman-ruangan";
+                                return "gabisa-add-peminjaman-ruangan";
 
                             } else {
                                 peminjamanruangan.setIs_disetujui(false);
@@ -210,7 +210,7 @@ public class PeminjamanRuanganController {
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                return "add-peminjaman-ruangan";
+                                return "gabisa-add-peminjaman-ruangan";
                             }
                         } else {
                             messages = "Kapasitas tidak sesuai";
@@ -244,7 +244,7 @@ public class PeminjamanRuanganController {
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                return "add-peminjaman-ruangan";
+                                return "gabisa-add-peminjaman-ruangan";
 
                             } else {
                                 peminjamanruangan.setIs_disetujui(false);
@@ -253,7 +253,7 @@ public class PeminjamanRuanganController {
 
                                 peminjamanRuanganService.addPeminjamRuangan(peminjamanruangan);
                                 model.addAttribute("peminjamanruangan", peminjamanruangan);
-                                return "add-peminjaman-ruangan";
+                                return "gabisa-add-peminjaman-ruangan";
                             }
                         }else{
                             messages = "Sudah ada peminjaman pada waktu dan tanggal tersebut";
@@ -278,7 +278,7 @@ public class PeminjamanRuanganController {
         }
 //        String message = "kentut sapi";
 //        model.addAttribute("message", message);
-        return "view-all-peminjaman-ruangan";
+        return "gabisa-add-peminjaman-ruangan";
     }
 
 
